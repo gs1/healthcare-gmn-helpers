@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HealthcareGMN</name>
+    </assembly>
+    <members>
+        <member name="T:GS1.HealthcareGMN">
+             <summary>
+             Helper class that is both a demonstration and usable implementation of a
+             check character generator and verifier for a GS1 GMN that is used for
+             Regulated Healthcare medical devices that fall under the EU regulations EU
+             MDR 2017/745 and EU IVDR 2017/746, herein referred to as a "healthcare GMN".
+            
+             (c) 2019 GS1 AISBL. All rights reserved.
+             </summary>
+        </member>
+        <member name="F:GS1.HealthcareGMN.weights">
+            <summary>
+            Descending primes used as multipliers of each data character.
+            </summary>
+        </member>
+        <member name="F:GS1.HealthcareGMN.cset82">
+            <summary>
+            GS1 AI encodable character set 82. Place in the string represents the character value.
+            </summary>
+        </member>
+        <member name="F:GS1.HealthcareGMN.cset32">
+            <summary>
+            Subset of the encodable character set used for check characters.
+            </summary>
+        </member>
+        <member name="F:GS1.HealthcareGMN.cset82val">
+            <summary>
+            Character to value map for cset82.
+            </summary>
+        </member>
+        <member name="M:GS1.HealthcareGMN.CheckCharacters(System.String)">
+            <summary>
+            Character to value map for cset82.
+            </summary>
+            <param name="part">A partial healthcare GMN.</param>
+            <returns>Two check characters.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="M:GS1.HealthcareGMN.AddCheckCharacters(System.String)">
+            <summary>
+            Complete a given partial healthcare GMN by appending two check characters.
+            </summary>
+            <param name="part">A partial healthcare GMN.</param>
+            <returns>A complete healthcare GMN including check characters.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="M:GS1.HealthcareGMN.VerifyCheckCharacters(System.String)">
+            <summary>
+            Verify that a given healthcare GMN has correct check characters.
+            </summary>
+            <param name="gmn">A healthcare GMN.</param>
+            <returns>True if the healthcare GMN is has valid check characters. Otherwise false.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="T:GS1.GS1Exception">
+            <summary>
+            A custom exception class to differentiate exceptions raised by the utility
+            class from other sources of error.
+            </summary>
+        </member>
+        <member name="M:GS1.GS1Exception.#ctor(System.String)">
+            <summary>
+            Error constructor.
+            </summary>
+            <param name="message">
+            Description of the error.
+            </param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,163 @@
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"> <style>
+	.KEYW {color: #933;}
+	.COMM {color: #bbb; font-style: italic;}
+	.NUMB {color: #393;}
+	.STRN {color: #393;}
+	.REGX {color: #339;}
+	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
+	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<span class='line'>  2</span>  * Helper module that is both a demonstration and usable implementation of a
+<span class='line'>  3</span>  * check character generator and verifier for a GS1 GMN that is used for
+<span class='line'>  4</span>  * Regulated Healthcare medical devices that fall under the EU regulations EU
+<span class='line'>  5</span>  * MDR 2017/745 and EU IVDR 2017/746, herein referred to as a "healthcare GMN".
+<span class='line'>  6</span>  *
+<span class='line'>  7</span>  * @author (c) 2019 GS1 AISBL. All rights reserved
+<span class='line'>  8</span>  *
+<span class='line'>  9</span>  * @namespace HealthcareGMN
+<span class='line'> 10</span>  *
+<span class='line'> 11</span>  */</span><span class="WHIT">
+<span class='line'> 12</span> </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">HealthcareGMN</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 13</span> 
+<span class='line'> 14</span> </span><span class="WHIT">    </span><span class="STRN">"use strict"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 15</span> 
+<span class='line'> 16</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 17</span>      * Descending primes used as multipliers of each data character.
+<span class='line'> 18</span>      * @private
+<span class='line'> 19</span>      */</span><span class="WHIT">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">weights</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">
+<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NUMB">83</span><span class="PUNC">,</span><span class="NUMB">79</span><span class="PUNC">,</span><span class="NUMB">73</span><span class="PUNC">,</span><span class="NUMB">71</span><span class="PUNC">,</span><span class="NUMB">67</span><span class="PUNC">,</span><span class="NUMB">61</span><span class="PUNC">,</span><span class="NUMB">59</span><span class="PUNC">,</span><span class="NUMB">53</span><span class="PUNC">,</span><span class="NUMB">47</span><span class="PUNC">,</span><span class="NUMB">43</span><span class="PUNC">,</span><span class="NUMB">41</span><span class="PUNC">,</span><span class="NUMB">37</span><span class="PUNC">,</span><span class="NUMB">31</span><span class="PUNC">,</span><span class="NUMB">29</span><span class="PUNC">,</span><span class="NUMB">23</span><span class="PUNC">,</span><span class="NUMB">19</span><span class="PUNC">,</span><span class="NUMB">17</span><span class="PUNC">,</span><span class="NUMB">13</span><span class="PUNC">,</span><span class="NUMB">11</span><span class="PUNC">,</span><span class="NUMB">7</span><span class="PUNC">,</span><span class="NUMB">5</span><span class="PUNC">,</span><span class="NUMB">3</span><span class="PUNC">,</span><span class="NUMB">2</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 22</span> 
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 24</span>      * GS1 AI encodable character set 82. Place in the string represents the
+<span class='line'> 25</span>      * character value.
+<span class='line'> 26</span>      * @private
+<span class='line'> 27</span>      */</span><span class="WHIT">
+<span class='line'> 28</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">cset82</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT">
+<span class='line'> 29</span> </span><span class="WHIT">        </span><span class="STRN">"!\"%&'()*+,-./0123456789:;&lt;=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT">
+<span class='line'> 30</span> </span><span class="WHIT">        </span><span class="STRN">"_abcdefghijklmnopqrstuvwxyz"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 31</span> 
+<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 33</span>      * Subset of the encodable character set used for check characters.
+<span class='line'> 34</span>      * @private
+<span class='line'> 35</span>      */</span><span class="WHIT">
+<span class='line'> 36</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">cset32</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"23456789ABCDEFGHJKLMNPQRSTUVWXYZ"</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span> 
+<span class='line'> 38</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 39</span>      * Character to value map for cset82.
+<span class='line'> 40</span>      * @private
+<span class='line'> 41</span>      */</span><span class="WHIT">
+<span class='line'> 42</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">cset82value</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span> </span><span class="WHIT">    </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">cset82.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 44</span> </span><span class="WHIT">        </span><span class="NAME">cset82value</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">cset82</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 45</span> 
+<span class='line'> 46</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 47</span>      * Calculates the two check characters for a given partial healthcare GMN.
+<span class='line'> 48</span>      *
+<span class='line'> 49</span>      * @memberof HealthcareGMN
+<span class='line'> 50</span>      * @param {string} part a partial healthcare GMN.
+<span class='line'> 51</span>      * @return {string} two check characters.
+<span class='line'> 52</span>      * @throws Will throw error if the format of the given healthcare GMN is invalid.
+<span class='line'> 53</span>      */</span><span class="WHIT">
+<span class='line'> 54</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">checkCharacters</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">part</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 55</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 56</span> </span><span class="WHIT">        </span><span class="NAME">_formatChecks</span><span class="PUNC">(</span><span class="NAME">part</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 57</span> 
+<span class='line'> 58</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'> 59</span>          * The GMN check digit calculation is performed here.
+<span class='line'> 60</span>          *
+<span class='line'> 61</span>          */</span><span class="WHIT">
+<span class='line'> 62</span> 
+<span class='line'> 63</span> </span><span class="WHIT">        </span><span class="COMM">// Characters are compared with the rightmost weights</span><span class="WHIT">
+<span class='line'> 64</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">offset</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">23</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NAME">part.length</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 65</span> 
+<span class='line'> 66</span> </span><span class="WHIT">        </span><span class="COMM">// Modulo 1021 sum of the products of the character values and their</span><span class="WHIT">
+<span class='line'> 67</span> </span><span class="WHIT">        </span><span class="COMM">// corresponding weights</span><span class="WHIT">
+<span class='line'> 68</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">sum</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 69</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">part.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 70</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 71</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">c</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">cset82value</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">part</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 72</span> </span><span class="WHIT">                </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">w</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">weights</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">offset</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 73</span> </span><span class="WHIT">                </span><span class="NAME">sum</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">c</span><span class="WHIT"> </span><span class="PUNC">*</span><span class="WHIT"> </span><span class="NAME">w</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 74</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 75</span> </span><span class="WHIT">        </span><span class="NAME">sum</span><span class="WHIT"> </span><span class="PUNC">%</span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">1021</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span> 
+<span class='line'> 77</span> </span><span class="WHIT">        </span><span class="COMM">// Split the 10-bit sum over two five-bit check characters</span><span class="WHIT">
+<span class='line'> 78</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="STRN">""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">cset32</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">Math.floor</span><span class="PUNC">(</span><span class="NAME">sum</span><span class="WHIT"> </span><span class="PUNC">/</span><span class="WHIT"> </span><span class="NUMB">32</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">cset32</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">sum</span><span class="WHIT"> </span><span class="PUNC">%</span><span class="WHIT"> </span><span class="NUMB">32</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 80</span> 
+<span class='line'> 81</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 82</span>      * Complete a given partial healthcare GMN by appending two check characters.
+<span class='line'> 83</span>      *
+<span class='line'> 84</span>      * @memberof HealthcareGMN
+<span class='line'> 85</span>      * @param {string} part a partial healthcare GMN.
+<span class='line'> 86</span>      * @return {string} a complete healthcare GMN including check characters.
+<span class='line'> 87</span>      * @throws Will throw error if the format of the given healthcare GMN is invalid.
+<span class='line'> 88</span>      */</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">addCheckCharacters</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">part</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">part</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">checkCharacters</span><span class="PUNC">(</span><span class="NAME">part</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 93</span> 
+<span class='line'> 94</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'> 95</span>      * Verify that a given healthcare GMN has correct check characters.
+<span class='line'> 96</span>      *
+<span class='line'> 97</span>      * @memberof HealthcareGMN
+<span class='line'> 98</span>      * @param {string} gmn a healthcare GMN.
+<span class='line'> 99</span>      * @return {boolean} true if the healthcare GMN is has valid check characters. Otherwise false.
+<span class='line'>100</span>      * @throws Will throw error if the format of the given healthcare GMN is invalid.
+<span class='line'>101</span>      */</span><span class="WHIT">
+<span class='line'>102</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">verifyCheckCharacters</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">gmn</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>103</span> </span><span class="WHIT">    </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>104</span> </span><span class="WHIT">        </span><span class="NAME">_formatChecks</span><span class="PUNC">(</span><span class="NAME">gmn</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>105</span> 
+<span class='line'>106</span> </span><span class="WHIT">        </span><span class="COMM">// Split off the provided check characters, recalculate them and ensure</span><span class="WHIT">
+<span class='line'>107</span> </span><span class="WHIT">        </span><span class="COMM">// that they match</span><span class="WHIT">
+<span class='line'>108</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">part</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">gmn.substring</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">gmn.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>109</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">suppliedChecks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">gmn.substring</span><span class="PUNC">(</span><span class="NAME">gmn.length</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">gmn.length</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>110</span> 
+<span class='line'>111</span> </span><span class="WHIT">        </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="NAME">checkCharacters</span><span class="PUNC">(</span><span class="NAME">part</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">suppliedChecks</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>112</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>113</span> 
+<span class='line'>114</span> </span><span class="WHIT">    </span><span class="COMM">// Perform some local consistency checks on the input</span><span class="WHIT">
+<span class='line'>115</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">_formatChecks</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">input</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">complete</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>116</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">maxLength</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">complete</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">25</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">23</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>117</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">minLength</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">complete</span><span class="WHIT"> </span><span class="PUNC">?</span><span class="WHIT"> </span><span class="NUMB">8</span><span class="WHIT"> </span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">6</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>118</span> 
+<span class='line'>119</span> </span><span class="WHIT">        </span><span class="COMM">// Verify length</span><span class="WHIT">
+<span class='line'>120</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">input.length</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">minLength</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>121</span> </span><span class="WHIT">            </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"The input is too short."</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>122</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">input.length</span><span class="WHIT"> </span><span class="PUNC">></span><span class="WHIT"> </span><span class="NAME">maxLength</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>123</span> </span><span class="WHIT">            </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"The input is too long."</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>124</span> 
+<span class='line'>125</span> </span><span class="WHIT">        </span><span class="COMM">// Ensure that first five digits are numeric</span><span class="WHIT">
+<span class='line'>126</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>127</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>128</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>129</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="STRN">"0123456789"</span><span class="PUNC">.</span><span class="NAME">indexOf</span><span class="PUNC">(</span><span class="WHIT"> </span><span class="NAME">input</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>130</span> </span><span class="WHIT">                </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"First five characters must be digits."</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>131</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>132</span> 
+<span class='line'>133</span> </span><span class="WHIT">        </span><span class="COMM">// Verify that the remaining content is in the encodable character set</span><span class="WHIT">
+<span class='line'>134</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">5</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">input.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>135</span> </span><span class="WHIT">        </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>136</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="WHIT"> </span><span class="NAME">cset82value</span><span class="PUNC">[</span><span class="WHIT"> </span><span class="NAME">input</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">]</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"undefined"</span><span class="PUNC">)</span><span class="WHIT">
+<span class='line'>137</span> </span><span class="WHIT">                </span><span class="KEYW">throw</span><span class="WHIT"> </span><span class="STRN">"Invalid character at position "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">": "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">input</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>138</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>139</span> 
+<span class='line'>140</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>141</span> 
+<span class='line'>142</span> </span><span class="WHIT">    </span><span class="KEYW">return</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>143</span> </span><span class="WHIT">        </span><span class="NAME">verifyCheckCharacters</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">verifyCheckCharacters</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>144</span> </span><span class="WHIT">        </span><span class="NAME">checkCharacters</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">checkCharacters</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>145</span> </span><span class="WHIT">        </span><span class="NAME">addCheckCharacters</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">addCheckCharacters</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'>146</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>147</span> 
+<span class='line'>148</span> </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>149</span> 
+<span class='line'>150</span> 
+<span class='line'>151</span> </span><span class="COMM">// For node.js</span><span class="WHIT">
+<span class='line'>152</span> </span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>153</span> </span><span class="WHIT">   </span><span class="NAME">module.exports</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">exports</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">HealthcareGMN</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>154</span> </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">catch</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">e</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>155</span> 
+<span class='line'>156</span> </span></pre></body></html>

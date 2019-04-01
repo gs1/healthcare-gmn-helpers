@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<!--
+  GMN check digit generator and verifier example.
+
+  (c) 2019 GS1 AISBL. All rights reserved.
+-->
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>GS1 Healthcare GMN JavaScript Helper Example</title>
+
+<!-- Include the library -->
+<script src="healthcaregmn.js"></script>
+
+<script>
+
+/*
+ *  Example: HealthcareGMN.verifyCheckCharacters
+ *
+ *  Verifying the check characters of a GMN.
+ *
+ */
+function verify ()
+{
+
+    var input = document.getElementById("input").value;
+
+    var output;
+    try
+    {
+        output = HealthcareGMN.verifyCheckCharacters(input) ? "Valid" : "Not valid";
+    }
+    catch (err)
+    {
+        output = err;
+    }
+
+    document.getElementById("output").value = output;
+
+}
+
+
+/*
+ *  Example: HealthcareGMN.addCheckCharacters
+ *
+ *  Adding the check characters to an incomplete GMN.
+ *
+ */
+function addChecks ()
+{
+
+    var input = document.getElementById("input").value;
+
+    var output;
+    try
+    {
+        output = HealthcareGMN.addCheckCharacters(input);
+    }
+    catch (err)
+    {
+        output = err;
+    }
+
+    document.getElementById("output").value = output;
+
+}
+
+
+/*
+ *  Example: HealthcareGMN.checkCharacters
+ *
+ *  Returning just the check characters.
+ *
+ */
+function showChecks ()
+{
+
+    var input = document.getElementById("input").value;
+
+    var output;
+    try
+    {
+        output = HealthcareGMN.checkCharacters(input);
+    }
+    catch (err)
+    {
+        output = err;
+    }
+
+    document.getElementById("output").value = output;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h1>GS1 Healthcare GMN</h1>
+
+<h2>JavaScript Helper Library Example</h2>
+
+<table>
+
+<tr>
+<td><label for="input">Input:</label></td>
+<td>
+<input id="input" type="text" size="35">
+
+
+<!-- Link each button's onclick action to a function of the helper library -->
+
+<button onclick="verify()">Verify</button>
+<button onclick="addChecks()">Add Checks</button>
+<button onclick="showChecks()">Show Checks</button>
+
+
+</td>
+</tr>
+
+<tr>
+<td><label for="output">Output:</label></td>
+<td>
+<input id="output" type="text" size="35" readonly>
+</td>
+</tr>
+
+</table>
+
+</body>
+
+</html>

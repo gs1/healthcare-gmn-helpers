@@ -1,0 +1,32 @@
+matrix:
+  include:
+    - language: csharp
+      solution: GS1GMN.sln
+      mono: none
+      dotnet: 2.1.502
+      before_script:
+        - cd cs
+      script:
+        - dotnet restore GS1GMN.sln
+        - dotnet test HealthcareGMNTests/HealthcareGMNTests.csproj
+    - language: java
+      addons:
+        apt:
+          update: true
+      before_install:
+        - sudo apt-get install -y junit4
+      before_script:
+        - cd java
+      script:
+        - javac org/gs1/HealthcareGMN.java
+        - javac -cp .:/usr/share/java/junit4.jar HealthcareGMNTests.java
+        - java -cp .:/usr/share/java/junit4.jar org.junit.runner.JUnitCore HealthcareGMNTests
+    - language: node_js
+      node_js:
+        - "8"
+      before_install:
+        - npm install -g jest-cli
+      before_script:
+        - cd js
+      script:
+        - jest
