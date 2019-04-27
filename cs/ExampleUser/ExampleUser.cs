@@ -46,7 +46,7 @@ namespace ExampleUser
                 // Examples that raise exceptions:
                 //
                 // string gmn = "1987654Ad4X4bL5ttr2310c2KZ";  // Exception: Too long
-                // string gmn = "12345ABCZZ";                  // Exception: Too short
+                // string gmn = "12345AB";                     // Exception: Too short
                 // string gmn = "ABC7654Ad4X4bL5ttr2310cZZ";   // Exception: Doesn't start with five digits
                 // string gmn = "12345£££d4X4bL5ttr2310cZZ";   // Exception: Contains characters outside of CSET 82
 
@@ -85,7 +85,7 @@ namespace ExampleUser
                 // Examples that raise exceptions:
                 //
                 // string partialGMN = "1987654Ad4X4bL5ttr2310cX";  // Exception: Too long
-                // string partialGMN = "12345ABC";                  // Exception: Too short
+                // string partialGMN = "12345";                     // Exception: Too short
                 // string partialGMN = "ABC7654Ad4X4bL5ttr2310c";   // Exception: Doesn't start with five digits
                 // string partialGMN = "12345£££d4X4bL5ttr2310c";   // Exception: Contains characters outside of CSET 82
 
@@ -253,7 +253,7 @@ namespace ExampleUser
                 {
                     bool valid=HealthcareGMN.VerifyCheckCharacters(args[1]);
                     Console.WriteLine("The check characters are " + (valid ? "valid" : "NOT valid"));
-                    Environment.Exit(valid ? 1:0);
+                    Environment.Exit(valid ? 0:1);
                 }
                 else   // complete
                 {
