@@ -58,6 +58,25 @@ From this directory:
     npm install readline-sync
     node exampleuser.node.js
 
+When the example application is run without command line arguments it will
+display the output of some trivial non-interactive library operations on static
+data. It will then enter an interactive mode in which it prompts the user for
+an activity to perform and then the data or file to perform the given activity
+on.
+
+Additionally, the example application can be called with command line arguments
+in which case it will serve as a basic check character generation and
+verification utility:
+
+    $ node exampleuser.node.js complete 1987654Ad4X4bL5ttr2310c
+    1987654Ad4X4bL5ttr2310c2K
+
+    $ node exampleuser.node.js verify 1987654Ad4X4bL5ttr2310c2K
+    The check characters are valid
+
+    $ node exampleuser.node.js verify 1987654Ad4X4bL5ttr2310cXX
+    The check characters are NOT valid
+
 
 Running the unit tests
 ----------------------
