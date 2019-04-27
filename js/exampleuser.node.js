@@ -41,7 +41,7 @@ var checkCharacters;
 var valid;
 
 /*
- * Example: org.gs1.HealthcareGMN.verifyCheckCharacters
+ * Example: HealthcareGMN.verifyCheckCharacters
  *
  * Verifying the check characters of a healthcare GMN.
  *
@@ -55,11 +55,11 @@ try
     // Examples that raise exceptions:
     //
     // gmn = "1987654Ad4X4bL5ttr2310c2KZ";  // Exception: Too long
-    // gmn = "12345ABCZZ";                  // Exception: Too short
+    // gmn = "12345AB";                     // Exception: Too short
     // gmn = "ABC7654Ad4X4bL5ttr2310cZZ";   // Exception: Doesn't start with five digits
     // gmn = "12345£££d4X4bL5ttr2310cZZ";   // Exception: Contains characters outside of CSET 82
 
-    /* Call the org.gs1.HealthcareGMN.verifyCheckCharacters helper */
+    /* Call the HealthcareGMN.verifyCheckCharacters helper */
     valid = HealthcareGMN.verifyCheckCharacters(gmn);
 
     if (valid)
@@ -81,7 +81,7 @@ catch (e)
 
 
 /*
- * Example: org.gs1.HealthcareGMN.addCheckCharacters
+ * Example: HealthcareGMN.addCheckCharacters
  *
  * Adding the check characters to an incomplete healthcare GMN.
  *
@@ -93,12 +93,12 @@ try
 
     // Examples that raise exceptions:
     //
-    // String partialGMN = "1987654Ad4X4bL5ttr2310cX";  // Exception: Too long
-    // String partialGMN = "12345ABC";                  // Exception: Too short
-    // String partialGMN = "ABC7654Ad4X4bL5ttr2310c";   // Exception: Doesn't start with five digits
-    // String partialGMN = "12345£££d4X4bL5ttr2310c";   // Exception: Contains characters outside of CSET 82
+    // partialGMN = "1987654Ad4X4bL5ttr2310cX";  // Exception: Too long
+    // partialGMN = "12345";                     // Exception: Too short
+    // partialGMN = "ABC7654Ad4X4bL5ttr2310c";   // Exception: Doesn't start with five digits
+    // partialGMN = "12345£££d4X4bL5ttr2310c";   // Exception: Contains characters outside of CSET 82
 
-    /* Call the org.gs1.HealthcareGMN.addCheckCharacters helper */
+    /* Call the HealthcareGMN.addCheckCharacters helper */
     gmn = HealthcareGMN.addCheckCharacters(partialGMN);
 
     console.log("Partial:  " + partialGMN);
@@ -114,7 +114,7 @@ catch (e)
 
 
 /*
- * Example: org.gs1.HealthcareGMN.checkCharacters
+ * Example: HealthcareGMN.checkCharacters
  *
  * Returning just the check characters, then completing the healthcare GMN
  *
@@ -124,7 +124,7 @@ try
 
     partialGMN = "1987654Ad4X4bL5ttr2310c";      // Based on example from the Gen Specs
 
-    /* Call the org.gs1.HealthcareGMN.checkCharacters helper */
+    /* Call the HealthcareGMN.checkCharacters helper */
     checkCharacters = HealthcareGMN.checkCharacters(partialGMN);
 
     console.log("Partial:  " + partialGMN);
@@ -258,7 +258,7 @@ function processUserInput(args)
         {
             var valid = HealthcareGMN.verifyCheckCharacters(args[1]);
             console.log("The check characters are " + (valid ? "valid" : "NOT valid"));
-            process.exit(valid ? 1:0);
+            process.exit(valid ? 0:1);
         }
         else   // complete
         {
