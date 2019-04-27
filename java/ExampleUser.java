@@ -54,7 +54,7 @@ class ExampleUser
             // Examples that raise exceptions:
             //
             // String gmn = "1987654Ad4X4bL5ttr2310c2KZ";  // Exception: Too long
-            // String gmn = "12345ABCZZ";                  // Exception: Too short
+            // String gmn = "12345AB";                     // Exception: Too short
             // String gmn = "ABC7654Ad4X4bL5ttr2310cZZ";   // Exception: Doesn't start with five digits
             // String gmn = "12345£££d4X4bL5ttr2310cZZ";   // Exception: Contains characters outside of CSET 82
 
@@ -93,7 +93,7 @@ class ExampleUser
             // Examples that raise exceptions:
             //
             // String partialGMN = "1987654Ad4X4bL5ttr2310cX";  // Exception: Too long
-            // String partialGMN = "12345ABC";                  // Exception: Too short
+            // String partialGMN = "12345";                     // Exception: Too short
             // String partialGMN = "ABC7654Ad4X4bL5ttr2310c";   // Exception: Doesn't start with five digits
             // String partialGMN = "12345£££d4X4bL5ttr2310c";   // Exception: Contains characters outside of CSET 82
 
@@ -263,7 +263,7 @@ class ExampleUser
             {
                 boolean valid=HealthcareGMN.verifyCheckCharacters(args[1]);
                 System.out.println("The check characters are " + (valid ? "valid" : "NOT valid"));
-                System.exit(valid ? 1:0);
+                System.exit(valid ? 0:1);
             }
             else   // complete
             {
