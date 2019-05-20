@@ -32,7 +32,14 @@ function verify ()
     var output;
     try
     {
-        output = HealthcareGMN.verifyCheckCharacters(input) ? "Valid" : "Not valid";
+        if (HealthcareGMN.verifyCheckCharacters(input)) {
+            output = "Valid"
+        } else {
+            var part = input.substring(0, input.length - 2);
+            var suppliedChecks = input.substring(input.length - 2, input.length);
+            var correctChecks = HealthcareGMN.checkCharacters(part);
+            output = "Not valid. Correct characters are: " + correctChecks;
+        }
     }
     catch (err)
     {
