@@ -2,7 +2,7 @@ GS1 Healthcare GMN Helper Libraries
 ===================================
 
 The GS1 Healthcare GMN Helper Libraries is an open source project that contains
-a set of official helper libraries written by GS1 for check character
+a set of official helper libraries written by GS1 for check character pair
 generation and verification of a Global Model Number (GMN) when it is used for
 Regulated Healthcare medical devices that fall under the EU regulations EU MDR
 2017/745 and EU IVDR 2017/746, specifically when a GMN is used as the embodiment
@@ -28,8 +28,8 @@ selected by partitioning the value bitwise in two.
 
 This project not only demonstrates clearly how to implement the details of this
 algorithm in different well-known programming languages, but each library can
-be relied upon as an accurate implementation of the check character generation and
-validation processes.
+be relied upon as an accurate implementation of the check character pair
+generation and validation processes.
 
 
 Designed for Study
@@ -66,8 +66,8 @@ applications will also accept command line arguments in which case the behave as
 a utility that is appropriate for use by sysadmins with only basic scripting
 experience.
 
-The examples illustrate how to create and validate the check characters for a
-healthcare GMN, whether data is statically coded, supplied interactively or
+The examples illustrate how to create and validate the check character pair for
+a healthcare GMN, whether data is statically coded, supplied interactively or
 processed by consuming each line of a file.
 
 

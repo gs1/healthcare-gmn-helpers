@@ -7,7 +7,7 @@ namespace GS1
 
     /// <summary>
     /// Helper class that is both a demonstration and usable implementation of a
-    /// check character generator and verifier for a GS1 GMN that is used for
+    /// check character pair generator and verifier for a GS1 GMN that is used for
     /// Regulated Healthcare medical devices that fall under the EU regulations EU
     /// MDR 2017/745 and EU IVDR 2017/746, herein referred to as a "healthcare GMN".
     ///
@@ -27,7 +27,7 @@ namespace GS1
         private const string cset82 = "!\"%&'()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";
 
         /// <summary>
-        /// Subset of the encodable character set used for check characters.
+        /// Subset of the encodable character set used for the check character pair.
         /// </summary>
         private const string cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
@@ -49,14 +49,14 @@ namespace GS1
         /// Character to value map for cset82.
         /// </summary>
         /// <param name="part">A partial healthcare GMN.</param>
-        /// <returns>Two check characters.</returns>
+        /// <returns>Check character pair.</returns>
         /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         public static string CheckCharacters(string part)
         {
             _FormatChecks(part, false);
 
             /*
-             * The GMN check digit calculation is performed here.
+             * The GMN check character pair calculation is performed here.
              *
              */
 
@@ -82,10 +82,10 @@ namespace GS1
         }
 
         /// <summary>
-        /// Complete a given partial healthcare GMN by appending two check characters.
+        /// Complete a given partial healthcare GMN by appending the check character pair.
         /// </summary>
         /// <param name="part">A partial healthcare GMN.</param>
-        /// <returns>A complete healthcare GMN including check characters.</returns>
+        /// <returns>A complete healthcare GMN including the check character pair.</returns>
         /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         public static string AddCheckCharacters(string part)
         {
@@ -93,16 +93,16 @@ namespace GS1
         }
 
         /// <summary>
-        /// Verify that a given healthcare GMN has correct check characters.
+        /// Verify that a given healthcare GMN has a correct check character pair.
         /// </summary>
         /// <param name="gmn">A healthcare GMN.</param>
-        /// <returns>True if the healthcare GMN is has valid check characters. Otherwise false.</returns>
+        /// <returns>True if the healthcare GMN is has a valid check character pair. Otherwise false.</returns>
         /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         public static bool VerifyCheckCharacters(string gmn)
         {
             _FormatChecks(gmn, true);
 
-            // Split off the provided check characters, recalculate them and ensure that they match
+            // Split off the provided check character pair, recalculate them and ensure that they match
             string part = gmn.Substring(0, gmn.Length - 2);
             string suppliedChecks = gmn.Substring(gmn.Length - 2, 2);
 

@@ -31,7 +31,7 @@ public final class HealthcareGMN {
         "_abcdefghijklmnopqrstuvwxyz";
 
     /**
-     * Subset of the encodable character set used for check characters.
+     * Subset of the encodable character set used for the check character pair.
      */
     private final static String cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 
@@ -52,10 +52,10 @@ public final class HealthcareGMN {
     private HealthcareGMN() {}
 
     /**
-     * Calculates the two check characters for a given partial healthcare GMN.
+     * Calculates the check character pair for a given partial healthcare GMN.
      *
      * @param part a partial healthcare GMN.
-     * @return two check characters.
+     * @return check character pair.
      * @throws GS1Exception if the format of the given healthcare GMN is invalid.
      */
     public static String checkCharacters(String part)
@@ -64,7 +64,7 @@ public final class HealthcareGMN {
         _formatChecks(part, false);
 
         /*
-         * The GMN check digit calculation is performed here.
+         * The GMN check character pair calculation is performed here.
          *
          */
 	    
@@ -87,10 +87,10 @@ public final class HealthcareGMN {
     }
 
     /**
-     * Complete a given partial healthcare GMN by appending two check characters.
+     * Complete a given partial healthcare GMN by appending the check character pair.
      *
      * @param part a partial healthcare GMN.
-     * @return a complete healthcare GMN including check characters.
+     * @return a complete healthcare GMN including the check character pair.
      * @throws GS1Exception if the format of the given healthcare GMN is invalid.
      */
     public static String addCheckCharacters(String part)
@@ -100,10 +100,10 @@ public final class HealthcareGMN {
     }
 
     /**
-     * Verify that a given healthcare GMN has correct check characters.
+     * Verify that a given healthcare GMN has a correct check character pair.
      *
      * @param gmn a healthcare GMN.
-     * @return true if the healthcare GMN is has valid check characters. Otherwise false.
+     * @return true if the healthcare GMN is has a valid check character pair. Otherwise false.
      * @throws GS1Exception if the format of the given healthcare GMN is invalid.
      */
     public static boolean verifyCheckCharacters(String gmn)
@@ -111,7 +111,7 @@ public final class HealthcareGMN {
     {
         _formatChecks(gmn, true);
 
-        // Split off the provided check characters, recalculate them and ensure
+        // Split off the provided check character pair, recalculate them and ensure
         // that they match
         String part = gmn.substring(0, gmn.length() - 2);
         String suppliedChecks = gmn.substring(gmn.length() - 2, gmn.length());

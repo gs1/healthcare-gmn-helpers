@@ -1,6 +1,6 @@
 /**
  * Helper module that is both a demonstration and usable implementation of a
- * check character generator and verifier for a GS1 GMN that is used for
+ * check character pair generator and verifier for a GS1 GMN that is used for
  * Regulated Healthcare medical devices that fall under the EU regulations EU
  * MDR 2017/745 and EU IVDR 2017/746, herein referred to as a "healthcare GMN".
  *
@@ -30,7 +30,7 @@ var HealthcareGMN = (function () {
         "_abcdefghijklmnopqrstuvwxyz";
 
     /**
-     * Subset of the encodable character set used for check characters.
+     * Subset of the encodable character set used for check character pairs.
      * @private
      */
     var cset32 = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
@@ -44,11 +44,11 @@ var HealthcareGMN = (function () {
         cset82value[ cset82[i] ] = i;
 
     /**
-     * Calculates the two check characters for a given partial healthcare GMN.
+     * Calculates the check character pair for a given partial healthcare GMN.
      *
      * @memberof HealthcareGMN
      * @param {string} part a partial healthcare GMN.
-     * @return {string} two check characters.
+     * @return {string} check character pair.
      * @throws Will throw error if the format of the given healthcare GMN is invalid.
      */
     var checkCharacters = function (part)
@@ -56,7 +56,7 @@ var HealthcareGMN = (function () {
         _formatChecks(part, false);
 
         /*
-         * The GMN check digit calculation is performed here.
+         * The GMN check character pair calculation is performed here.
          *
          */
 
@@ -79,11 +79,11 @@ var HealthcareGMN = (function () {
     };
 
     /**
-     * Complete a given partial healthcare GMN by appending two check characters.
+     * Complete a given partial healthcare GMN by appending the check character pair.
      *
      * @memberof HealthcareGMN
      * @param {string} part a partial healthcare GMN.
-     * @return {string} a complete healthcare GMN including check characters.
+     * @return {string} a complete healthcare GMN including the check character pair.
      * @throws Will throw error if the format of the given healthcare GMN is invalid.
      */
     var addCheckCharacters = function (part)
@@ -92,18 +92,18 @@ var HealthcareGMN = (function () {
     };
 
     /**
-     * Verify that a given healthcare GMN has correct check characters.
+     * Verify that a given healthcare GMN has a correct check character pair.
      *
      * @memberof HealthcareGMN
      * @param {string} gmn a healthcare GMN.
-     * @return {boolean} true if the healthcare GMN is has valid check characters. Otherwise false.
+     * @return {boolean} true if the healthcare GMN is has a valid check character pair. Otherwise false.
      * @throws Will throw error if the format of the given healthcare GMN is invalid.
      */
     var verifyCheckCharacters = function (gmn)
     {
         _formatChecks(gmn, true);
 
-        // Split off the provided check characters, recalculate them and ensure
+        // Split off the provided check character pair, recalculate them and ensure
         // that they match
         var part = gmn.substring(0, gmn.length - 2);
         var suppliedChecks = gmn.substring(gmn.length - 2, gmn.length);

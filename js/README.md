@@ -2,8 +2,8 @@ HealthcareGMN JavaScript Helper Library
 =======================================
 
 This contains an official JavaScript helper library provided by GS1 for check
-character generation and verification of a Global Model Number (GMN) when it is
-used for Regulated Healthcare medical devices that fall under the EU
+character pair generation and verification of a Global Model Number (GMN) when
+it is used for Regulated Healthcare medical devices that fall under the EU
 regulations EU MDR 2017/745 and EU IVDR 2017/746, specifically when a GMN is
 used as the embodiment of a Basic UDI-DI.
 
@@ -65,7 +65,7 @@ an activity to perform and then the data or file to perform the given activity
 on.
 
 Additionally, the example application can be called with command line arguments
-in which case it will serve as a basic check character generation and
+in which case it will serve as a basic check character pair generation and
 verification utility:
 
     $ node exampleuser.node.js complete 1987654Ad4X4bL5ttr2310c
@@ -97,4 +97,4 @@ Documentation can be regenerated using JSDoc.
 From this source directory:
 
     npm install -g jsdoc
-    jsdoc -d=doc healthcaregmn.js
+    jsdoc -d doc healthcaregmn.js

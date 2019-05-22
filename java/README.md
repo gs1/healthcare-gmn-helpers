@@ -2,8 +2,8 @@ org.gs.HealthcareGMN Java Helper Library
 ========================================
 
 This contains an official Java helper library provided by GS1 for check
-character generation and verification of a Global Model Number (GMN) when it is
-used for Regulated Healthcare medical devices that fall under the EU
+character pair generation and verification of a Global Model Number (GMN) when
+it is used for Regulated Healthcare medical devices that fall under the EU
 regulations EU MDR 2017/745 and EU IVDR 2017/746, specifically when a GMN is
 used as the embodiment of a Basic UDI-DI.
 
@@ -80,15 +80,15 @@ an activity to perform and then the data or file to perform the given activity
 on.
 
 Additionally, the example application can be called with command line arguments
-in which case it will serve as a basic check character generation and
+in which case it will serve as a basic check character pair generation and
 verification utility:
 
     $ java ExampleUser complete 1987654Ad4X4bL5ttr2310c
     1987654Ad4X4bL5ttr2310c2K
-    
+
     $ java ExampleUser verify 1987654Ad4X4bL5ttr2310c2K
     The check characters are valid
-    
+
     $ java ExampleUser verify 1987654Ad4X4bL5ttr2310cXX
     The check characters are NOT valid
 
