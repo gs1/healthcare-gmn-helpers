@@ -117,15 +117,15 @@ namespace GS1
 
             // Verify length
             if (input.Length < minLength)
-                throw new GS1Exception("The input is too short.");
+                throw new GS1Exception("The input is too short. It should be at least 6 characters long excluding the check character pair.");
             if (input.Length > maxLength)
-                throw new GS1Exception("The input is too long.");
+                throw new GS1Exception("The input is too long. It should be 23 characters maximum excluding the check character pair.");
 
             // Ensure that first five digits are numeric
             for (int i = 0; i < 5; i++)
             {
                 if (!Char.IsDigit(input[i]))
-                    throw new GS1Exception("The first five characters must be digits.");
+                    throw new GS1Exception("GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.");
             }
 
             // Verify that the remaining content is in the encodable character set
