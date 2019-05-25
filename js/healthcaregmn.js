@@ -44,6 +44,14 @@ var HealthcareGMN = (function () {
         cset82value[ cset82[i] ] = i;
 
     /**
+     * Character to value map for cset32.
+     * @private
+     */
+    var cset32value = {};
+    for (var i = 0; i < cset32.length; i++)
+        cset32value[ cset32[i] ] = i;
+
+    /**
      * Calculates the check character pair for a given partial healthcare GMN.
      *
      * @memberof HealthcareGMN
@@ -111,6 +119,32 @@ var HealthcareGMN = (function () {
         return checkCharacters(part) === suppliedChecks;
     };
 
+    /**
+     * Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gmn a full or partial healthcare GMN.
+     * @param {boolean} complete true if a GMN is being provided complete with a check character pair. Otherwise false.
+     * @return {boolean[]} a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    var goodCharacterPositions = function (gmn, complete)
+    {
+        var out = [];
+        for (var i = 0; i < gmn.length; i++)
+        {
+
+            // GMN begins with a GS1 Company Prefix which is at least five characters
+            if (i < 5)
+                out[i] = "0123456789".indexOf( gmn[i] ) != -1;
+            else if (!complete || i < gmn.length - 2)
+                out[i] = typeof cset82value[ gmn[i] ] !== "undefined";
+            else  // For a complete GMN final two positions are check character pair
+                out[i] = typeof cset32value[ gmn[i] ] !== "undefined";
+
+        }
+        return out;
+    };
+
     // Perform some local consistency checks on the input
     var _formatChecks = function (input, complete) {
         var maxLength = complete ? 25 : 23;
@@ -122,27 +156,29 @@ var HealthcareGMN = (function () {
         if (input.length > maxLength)
             throw "The input is too long. It should be 23 characters maximum excluding the check character pair.";
 
-        // Ensure that first five digits are numeric
-        var i;
-        for (i = 0; i < 5; i++)
+        // Verify that the content is in the correct encodable character set
+        var goodCharacters = goodCharacterPositions(input, complete);
+        for (i = 0; i < input.length; i++)
         {
-            if ("0123456789".indexOf( input[i] ) == -1)
-                throw "GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.";
-        }
 
-        // Verify that the remaining content is in the encodable character set
-        for (i = 5; i < input.length; i++)
-        {
-            if (typeof cset82value[ input[i] ] === "undefined")
-                throw "Invalid character at position " + (i + 1) + ": " + input[i];
-        }
+            if (!goodCharacters[i])
+            {
+                if (i < 5)
+                    throw "GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.";
+                else if (!complete || i < input.length - 2)
+                    throw "Invalid character at position " + (i + 1) + ": " + input[i];
+                else
+                    throw "Invalid check character at position " + (i + 1) + ": " + input[i];
+            }
 
+        }
     };
 
     return {
         verifyCheckCharacters: verifyCheckCharacters,
         checkCharacters: checkCharacters,
         addCheckCharacters: addCheckCharacters,
+        goodCharacterPositions: goodCharacterPositions,
     };
 
 })();

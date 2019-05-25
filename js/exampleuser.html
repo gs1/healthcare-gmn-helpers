@@ -21,27 +21,21 @@
 /*
  * Example error handler
  *
+ * err:      The exception that was raised
+ * input:    A partial or complete GMN as supplied.
+ * complete: True if input represents a complete GMN, i.e. for verify.
+ *
  */
-function _handleerror(err,input)
+function _handleerror(err,input,complete)
 {
 
+    // Something went wrong due to incorrect input. Indicate the source of the error to the user.
     var output = err;
     var shoutout = "";
 
-    // Something went wrong due to incorrect input. Indicate the source of the error to the user.
-    var match;
-    if (match = /^Invalid character at position (.*):/.exec(err))
-    {
-        var p = match[1];
-        shoutout = input.substring(0,p-1) +
-                   '<span style="color: #f00">' + input.substring(p-1,p) + "</span>" +
-                   input.substring(p);
-    }
-    else if (match = /first five characters must be digits/)
-    {
-        shoutout = '<span style="color: #f00">' + input.substring(0,5) + "</span>" +
-                   input.substring(5);
-    }
+    var goodCharacters = HealthcareGMN.goodCharacterPositions(input,complete);
+    for (var i = 0; i < input.length; i++)
+        shoutout +=  goodCharacters[i] ? input[i] : '<span style="color: #f00">' + input[i] + '</span>';
 
     document.getElementById("output").value = output;
     document.getElementById("shoutout").innerHTML = shoutout;
@@ -87,7 +81,7 @@ function verify ()
     }
     catch (err)
     {
-        _handleerror(err,input);
+        _handleerror(err,input,true);
     }
 
 }
@@ -116,7 +110,7 @@ function addChecks ()
     }
     catch (err)
     {
-        _handleerror(err,input);
+        _handleerror(err,input,false);
     }
 
 }
@@ -143,7 +137,7 @@ function showChecks ()
     }
     catch (err)
     {
-        _handleerror(err,input);
+        _handleerror(err,input,false);
     }
 
 }

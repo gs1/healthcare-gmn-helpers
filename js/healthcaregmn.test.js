@@ -43,8 +43,20 @@ test('verifyCheckCharacters_InvalidCharacterNearStart', () => {
   expect( () => HealthcareGMN.verifyCheckCharacters("198765£Ad4X4bL5ttr2310c2K")).toThrow("Invalid character");
 });
 
-test('verifyCheckCharacters_InvalidCharacterAtEnd', () => {
-  expect( () => HealthcareGMN.verifyCheckCharacters("1987654Ad4X4bL5ttr2310c2£")).toThrow("Invalid character");
+test('verifyCheckCharacters_InvalidCharacterAtEndModel', () => {
+  expect( () => HealthcareGMN.verifyCheckCharacters("1987654Ad4X4bL5ttr2310£2K")).toThrow("Invalid character");
+});
+
+test('addCheckCharacters_InvalidCharacterAtEndModel', () => {
+  expect( () => HealthcareGMN.addCheckCharacters("1987654Ad4X4bL5ttr2310£")).toThrow("Invalid character");
+});
+
+test('verifyCheckCharacters_InvalidCharacterAtCheck1', () => {
+  expect( () => HealthcareGMN.verifyCheckCharacters("1987654Ad4X4bL5ttr2310cxK")).toThrow("Invalid check character");
+});
+
+test('verifyCheckCharacters_InvalidCharacterAtCheck2', () => {
+  expect( () => HealthcareGMN.verifyCheckCharacters("1987654Ad4X4bL5ttr2310c2x")).toThrow("Invalid check character");
 });
 
 test('verifyCheckCharacters_TooShort', () => {
