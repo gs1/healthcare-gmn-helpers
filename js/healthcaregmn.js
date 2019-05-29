@@ -158,7 +158,7 @@ var HealthcareGMN = (function () {
 
         // Verify that the content is in the correct encodable character set
         var goodCharacters = goodCharacterPositions(input, complete);
-        for (i = 0; i < input.length; i++)
+        for (var i = 0; i < input.length; i++)
         {
 
             if (!goodCharacters[i])
