@@ -36,13 +36,23 @@ namespace GS1
         /// </summary>
         private static readonly IReadOnlyDictionary<char, ushort> cset82val;
 
-        // Initialisation populates the cset82 mapping
+        /// <summary>
+        /// Character to value map for cset32.
+        /// </summary>
+        private static readonly IReadOnlyDictionary<char, ushort> cset32val;
+
+        // Initialisation populates the cset82 and cset32 mappings
         static HealthcareGMN()
         {
             IDictionary<char, ushort> tmp = new Dictionary<char, ushort>();
             for (ushort i = 0; i < cset82.Length; i++)
                 tmp.Add(cset82[i], i);
             cset82val = new ReadOnlyDictionary<char, ushort>(tmp);
+
+            tmp = new Dictionary<char, ushort>();
+            for (ushort i = 0; i < cset32.Length; i++)
+                tmp.Add(cset32[i], i);
+            cset32val = new ReadOnlyDictionary<char, ushort>(tmp);
         }
 
         /// <summary>
@@ -109,6 +119,30 @@ namespace GS1
             return CheckCharacters(part).Equals(suppliedChecks);
         }
 
+        /// <summary>
+        /// Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.
+        /// </summary>
+        /// <param name="gmn">A healthcare GMN.</param>
+        /// <param name="complete">true if a GMN is being provided complete with a check character pair. Otherwise false.</param>
+        /// <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
+        public static bool[] GoodCharacterPositions(string gmn, bool complete)
+        {
+            bool[] ret = new bool[gmn.Length];
+            for (int i = 0; i < gmn.Length; i++)
+            {
+
+                // GMN begins with a GS1 Company Prefix which is at least five characters
+                if (i < 5)
+                    ret[i] = Char.IsDigit(gmn[i]);
+                else if (!complete || i < gmn.Length - 2)
+                    ret[i] = cset82val.ContainsKey(gmn[i]);
+                else  // For a complete GMN final two positions are check character pair
+                    ret[i] = cset32val.ContainsKey(gmn[i]);
+
+            }
+            return ret;
+        }
+
         // Perform consistency checks on the GMN data
         private static void _FormatChecks(string input, bool complete)
         {
@@ -121,18 +155,20 @@ namespace GS1
             if (input.Length > maxLength)
                 throw new GS1Exception("The input is too long. It should be 23 characters maximum excluding the check character pair.");
 
-            // Ensure that first five digits are numeric
-            for (int i = 0; i < 5; i++)
+            // Verify that the content is in the correct encodable character set
+            bool[] goodCharacters = GoodCharacterPositions(input, complete);
+            for (int i = 0; i < input.Length; i++)
             {
-                if (!Char.IsDigit(input[i]))
-                    throw new GS1Exception("GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.");
-            }
 
-            // Verify that the remaining content is in the encodable character set
-            for (int i = 5; i < input.Length; i++)
-            {
-                if (!cset82val.ContainsKey(input[i]))
-                    throw new GS1Exception("Input contains an invalid character in position " + (i + 1) + ": " + input[i]);
+                if (!goodCharacters[i])
+                {
+                    if (i < 5)
+                        throw new GS1Exception("GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.");
+                    else if (!complete || i < input.Length - 2)
+                        throw new GS1Exception("Invalid character at position " + (i + 1) + ": " + input[i]);
+                    else
+                        throw new GS1Exception("Invalid check character at position " + (i + 1) + ": " + input[i]);
+                }
             }
 
             return;

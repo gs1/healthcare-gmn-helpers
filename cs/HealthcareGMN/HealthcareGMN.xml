@@ -7,7 +7,7 @@
         <member name="T:GS1.HealthcareGMN">
              <summary>
              Helper class that is both a demonstration and usable implementation of a
-             check character generator and verifier for a GS1 GMN that is used for
+             check character pair generator and verifier for a GS1 GMN that is used for
              Regulated Healthcare medical devices that fall under the EU regulations EU
              MDR 2017/745 and EU IVDR 2017/746, herein referred to as a "healthcare GMN".
             
@@ -26,7 +26,7 @@
         </member>
         <member name="F:GS1.HealthcareGMN.cset32">
             <summary>
-            Subset of the encodable character set used for check characters.
+            Subset of the encodable character set used for the check character pair.
             </summary>
         </member>
         <member name="F:GS1.HealthcareGMN.cset82val">
@@ -34,29 +34,42 @@
             Character to value map for cset82.
             </summary>
         </member>
+        <member name="F:GS1.HealthcareGMN.cset32val">
+            <summary>
+            Character to value map for cset32.
+            </summary>
+        </member>
         <member name="M:GS1.HealthcareGMN.CheckCharacters(System.String)">
             <summary>
             Character to value map for cset82.
             </summary>
             <param name="part">A partial healthcare GMN.</param>
-            <returns>Two check characters.</returns>
+            <returns>Check character pair.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         </member>
         <member name="M:GS1.HealthcareGMN.AddCheckCharacters(System.String)">
             <summary>
-            Complete a given partial healthcare GMN by appending two check characters.
+            Complete a given partial healthcare GMN by appending the check character pair.
             </summary>
             <param name="part">A partial healthcare GMN.</param>
-            <returns>A complete healthcare GMN including check characters.</returns>
+            <returns>A complete healthcare GMN including the check character pair.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         </member>
         <member name="M:GS1.HealthcareGMN.VerifyCheckCharacters(System.String)">
             <summary>
-            Verify that a given healthcare GMN has correct check characters.
+            Verify that a given healthcare GMN has a correct check character pair.
             </summary>
             <param name="gmn">A healthcare GMN.</param>
-            <returns>True if the healthcare GMN is has valid check characters. Otherwise false.</returns>
+            <returns>True if the healthcare GMN is has a valid check character pair. Otherwise false.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="M:GS1.HealthcareGMN.GoodCharacterPositions(System.String,System.Boolean)">
+            <summary>
+            Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.
+            </summary>
+            <param name="gmn">A healthcare GMN.</param>
+            <param name="complete">true if a GMN is being provided complete with a check character pair. Otherwise false.</param>
+            <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
         </member>
         <member name="T:GS1.GS1Exception">
             <summary>

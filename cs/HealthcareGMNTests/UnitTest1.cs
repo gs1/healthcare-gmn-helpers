@@ -69,10 +69,31 @@ namespace HealthcareGMNTests
         }
 
         [Fact]
-        public void VerifyCheckCharacters_InvalidCharacterAtEnd()
+        public void VerifyCheckCharacters_InvalidCharacterAtEndModel()
         {
-            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharacters("1987654Ad4X4bL5ttr2310c2£"));
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharacters("1987654Ad4X4bL5ttr2310£2K"));
             Assert.Contains("invalid character", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void AddCheckCharacters_InvalidCharacterAtEndModel()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => AddCheckCharacters("1987654Ad4X4bL5ttr2310£"));
+            Assert.Contains("invalid character", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharacters_InvalidCharacterAtCheck1()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharacters("1987654Ad4X4bL5ttr2310cxK"));
+            Assert.Contains("invalid check character", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharacters_InvalidCharacterAtCheck2()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharacters("1987654Ad4X4bL5ttr2310c2x"));
+            Assert.Contains("invalid check character", e.Message.ToLower());
         }
 
         [Fact]

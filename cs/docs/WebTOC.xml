@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="5fab2224-ff87-4958-92cf-1817369f6248" Title="GS1" Url="html/1ace538d-add0-2d60-1fc8-194e2f0e9278.htm">
-    <HelpTOCNode Id="ec92a609-7c76-4f44-a371-90e7a73f3360" Title="GS1Exception Class" Url="html/a50d2681-232f-ed06-c9b9-d6af7c10a698.htm">
+  <HelpTOCNode Id="73a194ef-c9e9-45f6-ad8f-e73f073b1c0c" Title="GS1" Url="html/1ace538d-add0-2d60-1fc8-194e2f0e9278.htm">
+    <HelpTOCNode Id="3b6dbfff-778a-495e-b09e-c4b63165c341" Title="GS1Exception Class" Url="html/a50d2681-232f-ed06-c9b9-d6af7c10a698.htm">
       <HelpTOCNode Title="GS1Exception Constructor " Url="html/b6799d97-7aa9-f1fb-3c22-ad83bb40968a.htm" />
     </HelpTOCNode>
-    <HelpTOCNode Id="088e09ab-bcf7-4022-a09c-dadbf8adf139" Title="HealthcareGMN Class" Url="html/b7445d43-1fb4-48af-eca8-369b6f3a0d07.htm">
-      <HelpTOCNode Id="5954499b-cd47-4d5f-904d-83def7dba287" Title="HealthcareGMN Methods" Url="html/dd57cbb1-ba90-4415-c029-6859e4b1df0c.htm">
+    <HelpTOCNode Id="a27efe24-06ac-4981-885c-28a664079aef" Title="HealthcareGMN Class" Url="html/b7445d43-1fb4-48af-eca8-369b6f3a0d07.htm">
+      <HelpTOCNode Id="644cd6f7-a98d-480a-b696-cc9f128c57a3" Title="HealthcareGMN Methods" Url="html/dd57cbb1-ba90-4415-c029-6859e4b1df0c.htm">
         <HelpTOCNode Title="AddCheckCharacters Method " Url="html/f62bd36f-0744-0859-23a3-97ad795dda96.htm" />
         <HelpTOCNode Title="CheckCharacters Method " Url="html/e74fe5ae-da55-7ae1-2703-75efbafa8e6d.htm" />
+        <HelpTOCNode Title="GoodCharacterPositions Method " Url="html/52a26d4d-a7e8-81ee-6297-811a70a70fd5.htm" />
         <HelpTOCNode Title="VerifyCheckCharacters Method " Url="html/6c4663b6-8882-75d0-503b-8ebb3a8c9c66.htm" />
       </HelpTOCNode>
     </HelpTOCNode>

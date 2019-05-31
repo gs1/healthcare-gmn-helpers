@@ -2,6 +2,7 @@
 <HelpKI>
   <HelpKINode Title="AddCheckCharacters method" Url="html/f62bd36f-0744-0859-23a3-97ad795dda96.htm" />
   <HelpKINode Title="CheckCharacters method" Url="html/e74fe5ae-da55-7ae1-2703-75efbafa8e6d.htm" />
+  <HelpKINode Title="GoodCharacterPositions method" Url="html/52a26d4d-a7e8-81ee-6297-811a70a70fd5.htm" />
   <HelpKINode Title="GS1 namespace" Url="html/1ace538d-add0-2d60-1fc8-194e2f0e9278.htm" />
   <HelpKINode Title="GS1.GS1Exception class" Url="html/a50d2681-232f-ed06-c9b9-d6af7c10a698.htm" />
   <HelpKINode Title="GS1.HealthcareGMN class" Url="html/b7445d43-1fb4-48af-eca8-369b6f3a0d07.htm" />
@@ -16,6 +17,7 @@
   </HelpKINode>
   <HelpKINode Title="HealthcareGMN.AddCheckCharacters method" Url="html/f62bd36f-0744-0859-23a3-97ad795dda96.htm" />
   <HelpKINode Title="HealthcareGMN.CheckCharacters method" Url="html/e74fe5ae-da55-7ae1-2703-75efbafa8e6d.htm" />
+  <HelpKINode Title="HealthcareGMN.GoodCharacterPositions method" Url="html/52a26d4d-a7e8-81ee-6297-811a70a70fd5.htm" />
   <HelpKINode Title="HealthcareGMN.VerifyCheckCharacters method" Url="html/6c4663b6-8882-75d0-503b-8ebb3a8c9c66.htm" />
   <HelpKINode Title="VerifyCheckCharacters method" Url="html/6c4663b6-8882-75d0-503b-8ebb3a8c9c66.htm" />
 </HelpKI>
