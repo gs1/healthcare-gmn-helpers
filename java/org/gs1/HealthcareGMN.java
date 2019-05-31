@@ -40,13 +40,23 @@ public final class HealthcareGMN {
      */
     private final static Map<Character, Short> cset82value;
 
-    // Initialisation populates the cset82 mapping
+    /**
+     * Character to value map for cset32.
+     */
+    private final static Map<Character, Short> cset32value;
+
+    // Initialisation populates the cset82 and cset32 mappings
     static
     {
         Map<Character, Short> tmp = new HashMap<>();
         for (short i = 0; i < cset82.length(); i++)
             tmp.put(cset82.charAt(i), i);
         cset82value=Collections.unmodifiableMap(tmp);
+
+        tmp = new HashMap<>();
+        for (short i = 0; i < cset32.length(); i++)
+            tmp.put(cset32.charAt(i), i);
+        cset32value=Collections.unmodifiableMap(tmp);
     }
 
     private HealthcareGMN() {}
@@ -67,7 +77,7 @@ public final class HealthcareGMN {
          * The GMN check character pair calculation is performed here.
          *
          */
-	    
+
         // Characters are compared with the rightmost weights
         int offset = 23 - part.length();
 
@@ -119,6 +129,31 @@ public final class HealthcareGMN {
         return checkCharacters(part).equals(suppliedChecks);
     }
 
+    /**
+     * Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.
+     *
+     * @param gmn a full or partial healthcare GMN.
+     * @param complete true if a GMN is being provided complete with a check character pair. Otherwise false.
+     * @return a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    public static boolean[] goodCharacterPositions(String gmn, boolean complete)
+    {
+        boolean[] out = new boolean[gmn.length()];
+        for (int i = 0; i < gmn.length(); i++)
+        {
+
+            // GMN begins with a GS1 Company Prefix which is at least five characters
+            if (i < 5)
+                out[i] = Character.isDigit(gmn.charAt(i));
+            else if (!complete || i < gmn.length() - 2)
+                out[i] = cset82value.containsKey(gmn.charAt(i));
+            else  // For a complete GMN final two positions are check character pair
+                out[i] = cset32value.containsKey(gmn.charAt(i));
+
+        }
+        return out;
+    };
+
     // Perform some local consistency checks on the input
     private static void _formatChecks(String input, boolean complete)
         throws GS1Exception
@@ -132,20 +167,18 @@ public final class HealthcareGMN {
         if (input.length() > maxLength)
             throw new GS1Exception("The input is too long. It should be 23 characters maximum excluding the check character pair.");
 
-        // Ensure that first five digits are numeric
-        for (int i = 0; i < 5; i++)
-        {
-            if (!Character.isDigit(input.charAt(i)))
-                throw new GS1Exception("GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.");
-        }
-
-        // Verify that the remaining content is in the encodable character set
-        for (int i = 5; i < input.length(); i++)
-        {
-            if (!cset82value.containsKey(input.charAt(i)))
-                throw new GS1Exception("Invalid character at position " +
-                    (i + 1) + ": " + input.charAt(i));
-        }
+        // Verify that the content is in the correct encodable character set
+        boolean[] goodCharacters = goodCharacterPositions(input, complete);
+        for (int i = 0; i < input.length(); i++)
+            if (!goodCharacters[i])
+            {
+                if (i < 5)
+                    throw new GS1Exception("GMN starts with the GS1 Company Prefix. At least the first five characters must be digits.");
+                else if (!complete || i < input.length() - 2)
+                    throw new GS1Exception("Invalid character at position " + (i + 1) + ": " + input.charAt(i));
+                else
+                    throw new GS1Exception("Invalid check character at position " + (i + 1) + ": " + input.charAt(i));
+            }
 
         return;
     }

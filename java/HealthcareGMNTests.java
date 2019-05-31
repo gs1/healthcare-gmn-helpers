@@ -66,9 +66,26 @@ public class HealthcareGMNTests
         }
 
         @Test(expected = Exception.class)
-        public void verifyCheckCharacters_InvalidCharacterAtEnd() throws Exception
+        public void verifyCheckCharacters_InvalidCharacterAtEndModel() throws Exception
         {
-            verifyCheckCharacters("1987654Ad4X4bL5ttr2310c2£");
+            verifyCheckCharacters("1987654Ad4X4bL5ttr2310£2K");
+        }
+
+        @Test(expected = Exception.class)
+        public void addCheckCharacters_InvalidCharacterAtEndModel() throws Exception
+        {
+            addCheckCharacters("1987654Ad4X4bL5ttr23102K£");
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharacters_InvalidCharacterAtCheck1() throws Exception
+        {
+            verifyCheckCharacters("1987654Ad4X4bL5ttr2310£cxK");
+        }
+        @Test(expected = Exception.class)
+        public void verifyCheckCharacters_InvalidCharacterAtCheck2() throws Exception
+        {
+            verifyCheckCharacters("1987654Ad4X4bL5ttr2310c2x");
         }
 
         @Test(expected = Exception.class)
