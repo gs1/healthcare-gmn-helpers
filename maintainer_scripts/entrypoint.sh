@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# Build C#
-cd /srv/cs
-dotnet build GS1GMN.sln
-dotnet test GS1GMN.sln
-dotnet pack -c Release -o app HealthcareGMN/HealthcareGMN.csproj
-cp HealthcareGMN/app/HealthcareGMN.*.nupkg .
+set -e
+
+# Build JS
+cd /srv/js
+jest
+jsdoc -d doc healthcaregmn.js
 
 # Build Java
 cd /srv/java
@@ -15,8 +15,11 @@ java -cp .:/usr/share/java/junit4.jar org.junit.runner.JUnitCore HealthcareGMNTe
 jar -cvf HealthcareGMN.jar org/gs1/*.class
 javadoc -d docs org.gs1
 
-# Build JS
-cd /srv/js
-jest
-jsdoc -d doc healthcaregmn.js
+# Build C#
+cd /srv/cs
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+dotnet build GS1GMN.sln
+dotnet test GS1GMN.sln
+dotnet pack -c Release -o app HealthcareGMN/HealthcareGMN.csproj
+cp HealthcareGMN/app/HealthcareGMN.*.nupkg .
 
