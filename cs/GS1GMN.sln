@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExampleUser", "ExampleUser\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareGMN", "HealthcareGMN\HealthcareGMN.csproj", "{76FEB5EB-773B-4B44-8B43-5B0BAD1996C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthcareGMNTests", "HealthcareGMNTests\HealthcareGMNTests.csproj", "{F8410394-F94D-49BB-8287-802E71CA9E30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareGMNTests", "HealthcareGMNTests\HealthcareGMNTests.csproj", "{F8410394-F94D-49BB-8287-802E71CA9E30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docfx_project", "docfx_project\docfx_project.csproj", "{67054E8F-3F21-4872-AEAD-117A442E42B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{F8410394-F94D-49BB-8287-802E71CA9E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8410394-F94D-49BB-8287-802E71CA9E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8410394-F94D-49BB-8287-802E71CA9E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67054E8F-3F21-4872-AEAD-117A442E42B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67054E8F-3F21-4872-AEAD-117A442E42B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67054E8F-3F21-4872-AEAD-117A442E42B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67054E8F-3F21-4872-AEAD-117A442E42B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

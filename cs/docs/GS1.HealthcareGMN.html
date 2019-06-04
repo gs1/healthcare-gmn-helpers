@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HealthcareGMN
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HealthcareGMN
+   ">
+    <meta name="generator" content="docfx 2.42.4.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="GS1.HealthcareGMN">
+  
+  
+  <h1 id="GS1_HealthcareGMN" data-uid="GS1.HealthcareGMN" class="text-break">Class HealthcareGMN
+  </h1>
+  <div class="markdown level0 summary"><p>Helper class that is both a demonstration and usable implementation of a
+check character pair generator and verifier for a GS1 GMN that is used for
+Regulated Healthcare medical devices that fall under the EU regulations EU
+MDR 2017/745 and EU IVDR 2017/746, herein referred to as a &quot;healthcare GMN&quot;.</p>
+<p>(c) 2019 GS1 AISBL. All rights reserved.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">HealthcareGMN</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="GS1.html">GS1</a></h6>
+  <h6><strong>Assembly</strong>: HealthcareGMN.dll</h6>
+  <h5 id="GS1_HealthcareGMN_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class HealthcareGMN</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <a id="GS1_HealthcareGMN_AddCheckCharacters_" data-uid="GS1.HealthcareGMN.AddCheckCharacters*"></a>
+  <h4 id="GS1_HealthcareGMN_AddCheckCharacters_System_String_" data-uid="GS1.HealthcareGMN.AddCheckCharacters(System.String)">AddCheckCharacters(String)</h4>
+  <div class="markdown level1 summary"><p>Complete a given partial healthcare GMN by appending the check character pair.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AddCheckCharacters(string part)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">part</span></td>
+        <td><p>A partial healthcare GMN.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A complete healthcare GMN including the check character pair.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_CheckCharacters_" data-uid="GS1.HealthcareGMN.CheckCharacters*"></a>
+  <h4 id="GS1_HealthcareGMN_CheckCharacters_System_String_" data-uid="GS1.HealthcareGMN.CheckCharacters(System.String)">CheckCharacters(String)</h4>
+  <div class="markdown level1 summary"><p>Character to value map for cset82.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string CheckCharacters(string part)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">part</span></td>
+        <td><p>A partial healthcare GMN.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Check character pair.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_GoodCharacterPositions_" data-uid="GS1.HealthcareGMN.GoodCharacterPositions*"></a>
+  <h4 id="GS1_HealthcareGMN_GoodCharacterPositions_System_String_System_Boolean_" data-uid="GS1.HealthcareGMN.GoodCharacterPositions(System.String,System.Boolean)">GoodCharacterPositions(String, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool[] GoodCharacterPositions(string gmn, bool complete)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gmn</span></td>
+        <td><p>A healthcare GMN.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">complete</span></td>
+        <td><p>true if a GMN is being provided complete with a check character pair. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span>[]</td>
+        <td><p>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_VerifyCheckCharacters_" data-uid="GS1.HealthcareGMN.VerifyCheckCharacters*"></a>
+  <h4 id="GS1_HealthcareGMN_VerifyCheckCharacters_System_String_" data-uid="GS1.HealthcareGMN.VerifyCheckCharacters(System.String)">VerifyCheckCharacters(String)</h4>
+  <div class="markdown level1 summary"><p>Verify that a given healthcare GMN has a correct check character pair.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool VerifyCheckCharacters(string gmn)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gmn</span></td>
+        <td><p>A healthcare GMN.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the healthcare GMN is has a valid check character pair. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

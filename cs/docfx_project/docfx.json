@@ -1,0 +1,34 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "*.csproj"
+          ],
+          "src": "../HealthcareGMN"
+        }
+      ],
+      "dest": "."
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**.yml"
+        ]
+      }
+    ],
+    "dest": "../docs",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "globalMetadata": {
+      "_disableNavbar": true,
+      "_disableContribution": true
+    },
+    "template": [
+      "default"
+    ]
+  }
+}

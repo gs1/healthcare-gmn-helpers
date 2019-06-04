@@ -76,10 +76,10 @@ verification utility:
 
     $ dotnet ExampleUser.dll complete 1987654Ad4X4bL5ttr2310c
     1987654Ad4X4bL5ttr2310c2K
-    
+
     $ dotnet ExampleUser.dll verify 1987654Ad4X4bL5ttr2310c2K
     The check characters are valid
-    
+
     $ dotnet ExampleUser.dll verify 1987654Ad4X4bL5ttr2310cXX
     The check characters are NOT valid
 
@@ -96,10 +96,9 @@ From this source directory:
 Regenerating the documentation
 -------------------------------
 
-Documentation can be regenerated using Sandcastle Help File Builder (SHFB)
-using the included file docs.shfbproj.
+Documentation is created as part of a standard build but can be regenerated
+specifically.
 
 From this source directory:
 
-    dotnet build GS1GMN.sln
-    msbuild docs.shfbproj
+    msbuild docfx_project/docfx_project.csproj
