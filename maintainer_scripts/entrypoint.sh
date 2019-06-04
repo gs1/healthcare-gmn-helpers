@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ $# -ne 0 ]; then
+  exec $@
+fi
+
 set -e
 
 # Build JS
