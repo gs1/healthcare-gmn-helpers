@@ -24,6 +24,7 @@ javadoc -d docs org.gs1
 # Build C#
 cd /srv/cs
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export HOME=/tmp
 dotnet build HealthcareGMN/HealthcareGMN.csproj
 dotnet test HealthcareGMNTests/HealthcareGMNTests.csproj
 dotnet pack -c Release -o app HealthcareGMN/HealthcareGMN.csproj
