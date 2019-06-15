@@ -97,4 +97,4 @@ Documentation can be regenerated using JSDoc.
 From this source directory:
 
     npm install -g jsdoc
-    jsdoc -d doc healthcaregmn.js
+    jsdoc -d docs healthcaregmn.js
