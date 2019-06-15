@@ -152,9 +152,9 @@ var HealthcareGMN = (function () {
 
         // Verify length
         if (input.length < minLength)
-            throw "The input is too short. It should be at least 6 characters long excluding the check character pair.";
+            throw "The input is too short. It should be at least " + minLength + " characters long.";
         if (input.length > maxLength)
-            throw "The input is too long. It should be 23 characters maximum excluding the check character pair.";
+            throw "The input is too long. It should be " + maxLength + " characters maximum.";
 
         // Verify that the content is in the correct encodable character set
         var goodCharacters = goodCharacterPositions(input, complete);

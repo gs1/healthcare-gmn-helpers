@@ -151,9 +151,9 @@ namespace GS1
 
             // Verify length
             if (input.Length < minLength)
-                throw new GS1Exception("The input is too short. It should be at least 6 characters long excluding the check character pair.");
+                throw new GS1Exception("The input is too short. It should be at least " + minLength + " characters long.");
             if (input.Length > maxLength)
-                throw new GS1Exception("The input is too long. It should be 23 characters maximum excluding the check character pair.");
+                throw new GS1Exception("The input is too long. It should be " + maxLength + " characters maximum.");
 
             // Verify that the content is in the correct encodable character set
             bool[] goodCharacters = GoodCharacterPositions(input, complete);
