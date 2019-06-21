@@ -344,3 +344,4 @@ healthchecksdb
 MigrationBackup/
 
 **/app/
+docs/manifest.json

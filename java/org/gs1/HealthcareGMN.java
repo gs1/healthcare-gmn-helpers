@@ -176,9 +176,9 @@ public final class HealthcareGMN {
 
         // Verify length
         if (input.length() < minLength)
-            throw new GS1Exception("The input is too short. It should be at least " + minLength + " characters long.");
+            throw new GS1Exception("The input is too short. It should be at least " + minLength + " characters long" + ( complete ? "." : " excluding the check character pair." ) );
         if (input.length() > maxLength)
-            throw new GS1Exception("The input is too long. It should be " + maxLength + " characters maximum.");
+            throw new GS1Exception("The input is too long. It should be " + maxLength + " characters maximum" + ( complete ? "." : " excluding the check character pair." ) );
 
         // Verify that the content is in the correct encodable character set
         boolean[] goodCharacters = goodCharacterPositions(input, complete);
