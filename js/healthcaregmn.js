@@ -100,6 +100,21 @@ var HealthcareGMN = (function () {
     };
 
     /**
+     * Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gcp a GS1 Company Prefix.
+     * @param {string} model a model reference.
+     * @return {string} check character pair.
+     * @throws Will throw error if the format of the given healthcare GMN is invalid.
+     */
+    var checkCharactersGcpModel = function (gcp, model)
+    {
+        _formatChecksGcpModel(gcp, model);
+        return checkCharacters(gcp + model);
+    };
+
+    /**
      * Complete a given partial healthcare GMN by appending the check character pair.
      *
      * @memberof HealthcareGMN
@@ -110,6 +125,21 @@ var HealthcareGMN = (function () {
     var addCheckCharacters = function (part)
     {
         return part + checkCharacters(part);
+    };
+
+    /**
+     * Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gcp a GS1 Company Prefix.
+     * @param {string} model a model reference.
+     * @return {string} a complete healthcare GMN including the check character pair.
+     * @throws Will throw error if the format of the given healthcare GMN is invalid.
+     */
+    var addCheckCharactersGcpModel = function (gcp, model)
+    {
+        _formatChecksGcpModel(gcp, model);
+        return addCheckCharacters(gcp + model);
     };
 
     /**
@@ -130,6 +160,22 @@ var HealthcareGMN = (function () {
         var suppliedChecks = gmn.substring(gmn.length - 2, gmn.length);
 
         return checkCharacters(part) === suppliedChecks;
+    };
+
+    /**
+     * Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gcp a GS1 Company Prefix.
+     * @param {string} model a model reference.
+     * @param {string} checks a check character pair.
+     * @return {boolean} true if the healthcare GMN has a valid check character pair. Otherwise false.
+     * @throws Will throw error if the format of the given healthcare GMN is invalid.
+     */
+    var verifyCheckCharactersGcpModelChecks = function (gcp, model, checks)
+    {
+        _formatChecksGcpModelChecks(gcp, model, checks);
+        return verifyCheckCharacters(gcp + model + checks);
     };
 
     /**
@@ -158,12 +204,61 @@ var HealthcareGMN = (function () {
         return out;
     };
 
-    // Perform some local consistency checks on the input
+    /**
+     * Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gcp a GS1 Company Prefix.
+     * @param {string} model a model reference.
+     * @param {string} checks a check character pair.
+     * @return {boolean[]} a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    var goodCharacterPositionsGcpModelChecks = function (gcp, model, checks)
+    {
+        var out = goodCharacterPositions(gcp + model + checks, true);
+
+        // The GS1 Company Prefix is numeric only
+        for (var i = 0; i < gcp.length; i++)
+            out[i] = "0123456789".indexOf( gcp[i] ) != -1;
+
+        // Define all characters of the GS1 Company Prefix to be bad if the length is incorrect
+        if (gcp.length < 5 || gcp.length > 12)
+            for (var i = 0; i < gcp.length; i++)
+                out[i] = false;
+
+        return out;
+    };
+
+    /**
+     * Indicate whether each character in a partial GMN, provided as GS1 Company Prefix and model reference components, belongs to the appropriate character set for the character position.
+     *
+     * @memberof HealthcareGMN
+     * @param {string} gcp a GS1 Company Prefix.
+     * @param {string} model a model reference.
+     * @return {boolean[]} a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    var goodCharacterPositionsGcpModel = function (gcp, model)
+    {
+        var out = goodCharacterPositions(gcp + model, false);
+
+        // The GS1 Company Prefix is numeric only
+        for (var i = 0; i < gcp.length; i++)
+            out[i] = "0123456789".indexOf( gcp[i] ) != -1;
+
+        // Define all characters of the GS1 Company Prefix to be bad if the length is incorrect
+        if (gcp.length < 5 || gcp.length > 12)
+            for (var i = 0; i < gcp.length; i++)
+                out[i] = false;
+
+        return out;
+    };
+
+    // Perform some local consistency checks on a partial or complete GMN string
     var _formatChecks = function (input, complete) {
         var maxLength = complete ? 25 : 23;
         var minLength = complete ? 8 : 6;
 
-        // Verify length
+        // Verify overall length
         if (input.length < minLength)
             throw "The input is too short. It should be at least " + minLength + " characters long" + ( complete ? "." : " excluding the check character pair." );
         if (input.length > maxLength)
@@ -187,11 +282,52 @@ var HealthcareGMN = (function () {
         }
     };
 
+    // Perform some local consistency checks on the input provided as GS1 Company Prefix and model reference
+    var _formatChecksGcpModel = function (gcp, model) {
+        _formatChecksGcpModelChecks(gcp, model, null);
+    }
+
+    // Perform some local consistency checks on the input provided as GS1 Company Prefix, model reference and check characters
+    var _formatChecksGcpModelChecks = function (gcp, model, checks) {
+
+        // Verify that the GS1 Company Prefix has the correct length
+        if (gcp.length < 5)
+            throw "The GS1 Company Prefix is too short. It should be at least 5 digits long.";
+        if (gcp.length > 12)
+            throw "The GS1 Company Prefix is too long. It should be less than 12 digits long.";
+
+        // Verify that the model reference contains at least one character
+        if (model.length < 1)
+            throw "The model reference must contain at least one character.";
+
+        // Verify that the GS1 Company Prefix is numeric only
+        var goodCharacters = goodCharacterPositionsGcpModel(gcp, model);
+        for (var i = 0; i < gcp.length; i++)
+            if (!goodCharacters[i])
+                throw "The GS1 Company Prefix must only contain digits.";
+
+        // If given, verify that the check is the correct length
+        if (checks != null && checks.length != 2)
+           throw "The check must be 2 characters long.";
+
+        // Perform more format checks on the overall GMN
+        if (checks == null)
+            _formatChecks(gcp + model, false);
+        else
+            _formatChecks(gcp + model + checks, true);
+
+    }
+
     return {
         verifyCheckCharacters: verifyCheckCharacters,
+        verifyCheckCharactersGcpModelChecks: verifyCheckCharactersGcpModelChecks,
         checkCharacters: checkCharacters,
+        checkCharactersGcpModel: checkCharactersGcpModel,
         addCheckCharacters: addCheckCharacters,
+        addCheckCharactersGcpModel: addCheckCharactersGcpModel,
         goodCharacterPositions: goodCharacterPositions,
+        goodCharacterPositionsGcpModel: goodCharacterPositionsGcpModel,
+        goodCharacterPositionsGcpModelChecks: goodCharacterPositionsGcpModelChecks,
     };
 
 })();

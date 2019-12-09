@@ -128,3 +128,70 @@ test('verifyCheckCharacters_MaximumIntermediateSum', () => {
   expect(HealthcareGMN.verifyCheckCharacters("99999zzzzzzzzzzzzzzzzzzT2")).toBe(true);
 });
 
+test('verifyCheckCharactersGcpModelChecks_UsingExampleFromGenSpecs', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2K")).toBe(true);
+});
+
+test('checkCharactersGcpModel_UsingExampleFromGenSpecs', () => {
+  expect(HealthcareGMN.checkCharactersGcpModel("1987654","Ad4X4bL5ttr2310c")).toBe("2K");
+});
+
+test('addCheckCharactersGcpModel_UsingExampleFromGenSpecs', () => {
+  expect(HealthcareGMN.addCheckCharactersGcpModel("1987654","Ad4X4bL5ttr2310c")).toBe("1987654Ad4X4bL5ttr2310c2K");
+});
+
+test('verifyCheckCharactersGcpModelChecks_InvalidCheck1', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","XK")).toBe(false);
+});
+
+test('verifyCheckCharactersGcpModelChecks_InvalidCheck2', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2X")).toBe(false);
+});
+
+test('verifyCheckCharactersGcpModelChecks_CheckTooShort', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","3")).toThrow("check must be 2 characters long");
+});
+
+test('verifyCheckCharactersGcpModelChecks_CheckTooLong', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2KX")).toThrow("check must be 2 characters long");
+});
+
+test('verifyCheckCharactersGcpModelChecks_GcpTooShort', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("1234","Ad4X4bL5ttr2310c","XX")).toThrow("GS1 Company Prefix is too short");
+});
+
+test('verifyCheckCharactersGcpModelChecks_GcpNotTooShort', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("12345","Ad4X4bL5ttr2310c","66")).toBe(true);
+});
+
+test('verifyCheckCharactersGcpModelChecks_GcpTooLong', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("1234567890123","Ad4X4bL5","XX")).toThrow("GS1 Company Prefix is too long");
+});
+
+test('verifyCheckCharactersGcpModelChecks_GcpNotTooLong', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("123456789012","Ad4X4bL5ttr","3R")).toBe(true);
+});
+
+test('verifyCheckCharactersGcpModelChecks_GcpNotNumeric', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("198765A","Ad4X4bL5ttr2310c","XX")).toThrow("GS1 Company Prefix must only contain digits");
+});
+
+test('verifyCheckCharactersGcpModelChecks_ModelEmpty', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("1987654","","3T")).toThrow("model reference must contain at least one character");
+});
+
+test('verifyCheckCharactersGcpModelChecks_OversizeShortestGCP', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("12345","6789012345678901234","XX")).toThrow("input is too long");
+});
+
+test('verifyCheckCharactersGcpModelChecks_NotOversizeShortestGCP', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("12345","678901234567890123","NT")).toBe(true);
+});
+
+test('verifyCheckCharactersGcpModelChecks_OversizeLongestGCP', () => {
+  expect( () => HealthcareGMN.verifyCheckCharactersGcpModelChecks("123456789012","345678901234","XX")).toThrow("input is too long");
+});
+
+test('verifyCheckCharactersGcpModelChecks_NotOversizeLongestGCP', () => {
+  expect(HealthcareGMN.verifyCheckCharactersGcpModelChecks("123456789012","34567890123","NT")).toBe(true);
+});

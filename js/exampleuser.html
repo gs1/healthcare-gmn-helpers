@@ -155,6 +155,177 @@ function showChecks ()
 
 }
 
+
+/*
+ *  Input event that is fired when the input fields are updated.
+ *
+ *  Ensures that appropriate actions are available depending on the input
+ *
+ */
+
+function inputEvent2 ()
+{
+
+    if (document.getElementById("input2gcp").value == "" ||
+        document.getElementById("input2model").value == "") {
+        document.getElementById("verifyButton2").disabled = true;
+        document.getElementById("addChecksButton2").disabled = true;
+        document.getElementById("showChecksButton2").disabled = true;
+        return;
+    }
+
+    if (document.getElementById("input2checks").value != "") {
+        document.getElementById("verifyButton2").disabled = false;
+        document.getElementById("addChecksButton2").disabled = true;
+        document.getElementById("showChecksButton2").disabled = true;
+    } else {
+        document.getElementById("verifyButton2").disabled = true;
+        document.getElementById("addChecksButton2").disabled = false;
+        document.getElementById("showChecksButton2").disabled = false;
+    }
+
+}
+
+
+/*
+ * Example error handler
+ *
+ * err:      The exception that was raised
+ * input:    A partial or complete GMN as supplied.
+ * complete: True if input represents a complete GMN, i.e. for verify.
+ *
+ */
+function _handleerror2(err,gcp,model,checks)
+{
+
+    // Something went wrong due to incorrect input. Indicate the source of the error to the user.
+    var output = err;
+    var shoutout = "";
+
+    var goodCharacters;
+    var input;
+    if (checks != null ) {
+        goodCharacters = HealthcareGMN.goodCharacterPositionsGcpModelChecks(gcp,model,checks);
+        input = gcp + model + checks;
+    } else {
+        goodCharacters = HealthcareGMN.goodCharacterPositionsGcpModel(gcp,model);
+        input = gcp + model
+    }
+
+    shoutout += '<u>';
+    for (var i = 0; i < gcp.length; i++)
+        shoutout +=  goodCharacters[i] ? input[i] : '<span style="color: #f00">' + input[i] + '</span>';
+    shoutout += '</u>';
+
+    for (var i = gcp.length; i < input.length; i++)
+        shoutout +=  goodCharacters[i] ? input[i] : '<span style="color: #f00">' + input[i] + '</span>';
+
+    document.getElementById("output2").value = output;
+    document.getElementById("shoutout2").innerHTML = shoutout;
+
+}
+
+
+/*
+ *  Example: HealthcareGMN.verifyCheckCharactersGcpModelChecks
+ *
+ *  Verifying the check characters of a GMN.
+ *
+ */
+function verify2 ()
+{
+
+    var gcp = document.getElementById("input2gcp").value;
+    var model = document.getElementById("input2model").value;
+    var checks = document.getElementById("input2checks").value;
+
+    var output;
+    var shoutout;
+    try
+    {
+
+        // If verifyCheckCharactersGcpModel returns true then all is well...
+        if (HealthcareGMN.verifyCheckCharactersGcpModelChecks(gcp,model,checks)) {
+            output = "Valid"
+            shoutout = '<u>' + gcp + '</u>' + model + '<span style="color: #0f0">' + checks + '</span>';
+        } else {  // Otherwise the user-provided GMN is incorrect
+
+            // ... calculate the correct check character pair and show the user
+            var correctChecks = HealthcareGMN.checkCharactersGcpModel(gcp,model);
+            output = "Not valid";
+            shoutout = '<u>' + gcp + '</u>' + model + '<span style="color: #f00">' + correctChecks + '</span>';
+
+        }
+
+        document.getElementById("output2").value = output;
+        document.getElementById("shoutout2").innerHTML = shoutout;
+
+    }
+    catch (err)
+    {
+        _handleerror2(err,gcp,model,checks);
+    }
+
+}
+
+
+/*
+ *  Example: HealthcareGMN.addCheckCharactersGcpModel
+ *
+ *  Adding the check characters to an incomplete GMN.
+ *
+ */
+function addChecks2 ()
+{
+
+    var gcp = document.getElementById("input2gcp").value;
+    var model = document.getElementById("input2model").value;
+
+    try
+    {
+        var output = HealthcareGMN.addCheckCharactersGcpModel(gcp,model);
+        var shoutout = '<u>' + gcp + '</u>' + model +
+                       '<span style="color: #f00">' +
+                       output.substring(output.length-2,output.length) +
+                       "</span>";
+        document.getElementById("output2").value = output;
+        document.getElementById("shoutout2").innerHTML = shoutout;
+    }
+    catch (err)
+    {
+        _handleerror2(err,gcp,model,null);
+    }
+
+}
+
+
+/*
+ *  Example: HealthcareGMN.checkCharactersGcpModel
+ *
+ *  Returning just the check characters.
+ *
+ */
+function showChecks2 ()
+{
+
+    var gcp = document.getElementById("input2gcp").value;
+    var model = document.getElementById("input2model").value;
+
+    try
+    {
+        var output = HealthcareGMN.checkCharactersGcpModel(gcp,model);
+        var shoutout = '<u>' + gcp + '</u>' + model +
+                       '<span style="color: #f00">' + output + "</span>";
+        document.getElementById("output2").value = output;
+        document.getElementById("shoutout2").innerHTML = shoutout;
+    }
+    catch (err)
+    {
+        _handleerror2(err,gcp,model,null);
+    }
+
+}
+
 </script>
 
 </head>
@@ -164,6 +335,13 @@ function showChecks ()
 <h1>GS1 Healthcare GMN</h1>
 
 <h2>JavaScript Helper Library Example</h2>
+
+
+<!--
+    Section for GMN input provided as a single field
+-->
+
+<p>GMN provided as a single field</p>
 
 <table>
 
@@ -186,7 +364,7 @@ function showChecks ()
 <tr>
 <td><label for="output">Output:</label></td>
 <td>
-<input id="output" type="text" size="35" readonly>
+<input id="output" type="text" size="50" readonly>
 </td>
 </tr>
 
@@ -195,6 +373,50 @@ function showChecks ()
 <br />
 
 <span id="shoutout" style="font-size: 2em; font-family: mono"></span>
+
+<hr />
+
+
+<!--
+    Section for GMN input provided as seperate fields
+-->
+
+<p>GMN provided as separate fields</p>
+
+<table>
+
+<tr>
+<td><label for="input2gcp">Input:</label></td>
+<td>
+
+<fieldset>
+<input id="input2gcp" type="text" size="12" oninput="javascript:inputEvent2()">
+<input id="input2model" type="text" size="25" oninput="javascript:inputEvent2()">
+<input id="input2checks" type="text" size="2" maxlength="2" oninput="javascript:inputEvent2()">
+</fieldset>
+
+<!-- Link each button's onclick action to a function of the helper library -->
+
+<button id="verifyButton2" disabled onclick="verify2()">Verify</button>
+<button id="addChecksButton2" disabled onclick="addChecks2()">Add Checks</button>
+<button id="showChecksButton2" disabled onclick="showChecks2()">Show Checks</button>
+
+
+</td>
+</tr>
+
+<tr>
+<td><label for="output">Output:</label></td>
+<td>
+<input id="output2" type="text" size="50" readonly>
+</td>
+</tr>
+
+</table>
+
+<br />
+
+<span id="shoutout2" style="font-size: 2em; font-family: mono"></span>
 
 </body>
 
