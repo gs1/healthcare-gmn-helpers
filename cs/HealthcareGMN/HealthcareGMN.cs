@@ -106,6 +106,19 @@ namespace GS1
         }
 
         /// <summary>
+        /// Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.
+        /// </summary>
+        /// <param name="gcp">A GS1 Company Prefix.</param>
+        /// <param name="model">A model reference.</param>
+        /// <returns>Check character pair.</returns>
+        /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        public static string CheckCharactersGcpModel(string gcp, string model)
+        {
+            _FormatChecksGcpModel(gcp, model);
+            return CheckCharacters(gcp + model);
+        }
+
+        /// <summary>
         /// Complete a given partial healthcare GMN by appending the check character pair.
         /// </summary>
         /// <param name="part">A partial healthcare GMN.</param>
@@ -114,6 +127,19 @@ namespace GS1
         public static string AddCheckCharacters(string part)
         {
             return part + CheckCharacters(part);
+        }
+
+        /// <summary>
+        /// Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.
+        /// </summary>
+        /// <param name="gcp">A GS1 Company Prefix.</param>
+        /// <param name="model">A model reference.</param>
+        /// <returns>A complete healthcare GMN including the check character pair.</returns>
+        /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        public static string AddCheckCharactersGcpModel(string gcp, string model)
+        {
+            _FormatChecksGcpModel(gcp, model);
+            return AddCheckCharacters(gcp + model);
         }
 
         /// <summary>
@@ -131,6 +157,20 @@ namespace GS1
             string suppliedChecks = gmn.Substring(gmn.Length - 2, 2);
 
             return CheckCharacters(part).Equals(suppliedChecks);
+        }
+
+        /// <summary>
+        /// Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.
+        /// </summary>
+        /// <param name="gcp">A GS1 Company Prefix.</param>
+        /// <param name="model">A model reference.</param>
+        /// <param name="checks">A check character pair.</param>
+        /// <returns>True if the healthcare GMN is has a valid check character pair. Otherwise false.</returns>
+        /// <exception cref="GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        public static bool VerifyCheckCharactersGcpModelChecks(string gcp, string model, string checks)
+        {
+            _FormatChecksGcpModelChecks(gcp, model, checks);
+            return VerifyCheckCharacters(gcp + model + checks);
         }
 
         /// <summary>
@@ -157,13 +197,48 @@ namespace GS1
             return ret;
         }
 
-        // Perform consistency checks on the GMN data
+        /// <summary>
+        /// Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.
+        /// </summary>
+        /// <param name="gcp">A GS1 Company Prefix.</param>
+        /// <param name="model">A model reference.</param>
+        /// <param name="checks">A check character pair.</param>
+        /// <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
+        public static bool[] GoodCharacterPositionsGcpModelChecks(string gcp, string model, string checks)
+        {
+            bool[] ret = GoodCharacterPositions(gcp + model + checks, true);
+
+            // The GS1 Company Prefix is numeric only
+            for (int i = 0; i < gcp.Length; i++)
+                ret[i] = Char.IsDigit(gcp[i]);
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference components, belongs to the appropriate character set for the character position.
+        /// </summary>
+        /// <param name="gcp">A GS1 Company Prefix.</param>
+        /// <param name="model">A model reference.</param>
+        /// <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
+        public static bool[] GoodCharacterPositionsGcpModel(string gcp, string model)
+        {
+            bool[] ret = GoodCharacterPositions(gcp + model, false);
+
+            // The GS1 Company Prefix is numeric only
+            for (int i = 0; i < gcp.Length; i++)
+                ret[i] = Char.IsDigit(gcp[i]);
+
+            return ret;
+        }
+
+        // Perform some local consistency checks on a partial or complete GMN string
         private static void _FormatChecks(string input, bool complete)
         {
             int maxLength = complete ? 25 : 23;
             int minLength = complete ? 8 : 6;
 
-            // Verify length
+            // Verify overall length
             if (input.Length < minLength)
                 throw new GS1Exception("The input is too short. It should be at least " + minLength + " characters long" + ( complete ? "." : " excluding the check character pair." ) );
             if (input.Length > maxLength)
@@ -184,6 +259,45 @@ namespace GS1
                         throw new GS1Exception("Invalid check character at position " + (i + 1) + ": " + input[i]);
                 }
             }
+
+            return;
+        }
+
+        // Perform some local consistency checks on the input provided as GS1 Company Prefix and model reference
+        private static void _FormatChecksGcpModel(string gcp, string model)
+        {
+            _FormatChecksGcpModelChecks(gcp, model, null);
+        }
+
+        // Perform some local consistency checks on the input provided as GS1 Company Prefix, model reference and check characters
+        private static void _FormatChecksGcpModelChecks(string gcp, string model, string checks)
+        {
+
+            // Verify that the GS1 Company Prefix has the correct length
+            if (gcp.Length < 5)
+                throw new GS1Exception("The GS1 Company Prefix is too short. It should be at least 5 digits long.");
+            if (gcp.Length > 12)
+                throw new GS1Exception("The GS1 Company Prefix is too long. It should be less than 12 digits long.");
+
+            // Verify that the model reference contains at least one character
+            if (model.Length < 1)
+                throw new GS1Exception("The model reference must contain at least one character.");
+
+            // Verify that the GS1 Company Prefix is numeric only
+            bool[] goodCharacters = GoodCharacterPositionsGcpModel(gcp, model);
+            for (int i = 0; i < gcp.Length; i++)
+                if (!goodCharacters[i])
+                    throw new GS1Exception("The GS1 Company Prefix must only contain digits.");
+
+            // If given, verify that the check is the correct length
+            if (checks != null && checks.Length != 2)
+               throw new GS1Exception("The check must be 2 characters long.");
+
+            // Perform more format checks on the overall GMN
+            if (checks == null)
+                _FormatChecks(gcp + model, false);
+            else
+                _FormatChecks(gcp + model + checks, true);
 
             return;
         }

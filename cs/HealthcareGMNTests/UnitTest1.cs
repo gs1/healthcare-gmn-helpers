@@ -195,5 +195,115 @@ namespace HealthcareGMNTests
             Assert.True(VerifyCheckCharacters("99999zzzzzzzzzzzzzzzzzzT2"));
         }
 
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_UsingExampleFromGenSpecs()
+        {
+            Assert.True(VerifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2K"));
+        }
+
+        [Fact]
+        public void CheckCharactersGcpModel_UsingExampleFromGenSpecs()
+        {
+            Assert.Equal("2K",CheckCharactersGcpModel("1987654","Ad4X4bL5ttr2310c"));
+        }
+
+        [Fact]
+        public void AddCheckCharactersGcpModel_UsingExampleFromGenSpecs()
+        {
+            Assert.Equal("1987654Ad4X4bL5ttr2310c2K", AddCheckCharactersGcpModel("1987654","Ad4X4bL5ttr2310c"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_InvalidCheck1()
+        {
+            Assert.False(VerifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","XK"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_InvalidCheck2()
+        {
+            Assert.False(VerifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2X"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_CheckTooShort()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","3"));
+            Assert.Contains("check must be 2 characters long", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_CheckTooLong()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2KX"));
+            Assert.Contains("check must be 2 characters long", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_GcpTooShort()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("1234","Ad4X4bL5ttr2310c","XX"));
+            Assert.Contains("gs1 company prefix is too short", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_GcpNotTooShort()
+        {
+            Assert.True(VerifyCheckCharactersGcpModelChecks("12345","Ad4X4bL5ttr2310c","66"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_GcpTooLong()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("1234567890123","Ad4X4bL5","XX"));
+            Assert.Contains("gs1 company prefix is too long", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_GcpNotTooLong()
+        {
+            Assert.True(VerifyCheckCharactersGcpModelChecks("123456789012","Ad4X4bL5ttr","3R"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_GcpNotNumeric()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("198765A","Ad4X4bL5ttr2310c","XX"));
+            Assert.Contains("gs1 company prefix must only contain digits", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_ModelEmpty()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("1987654","","3T"));
+            Assert.Contains("model reference must contain at least one character", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_OversizeShortestGCP()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("12345","6789012345678901234","XX"));
+            Assert.Contains("input is too long", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_NotOversizeShortestGCP()
+        {
+            Assert.True(VerifyCheckCharactersGcpModelChecks("12345","678901234567890123","NT"));
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_OversizeLongestGCP()
+        {
+            Exception e = Assert.ThrowsAny<Exception>(() => VerifyCheckCharactersGcpModelChecks("123456789012","345678901234","XX"));
+            Assert.Contains("input is too long", e.Message.ToLower());
+        }
+
+        [Fact]
+        public void VerifyCheckCharactersGcpModelChecks_NotOversizeLongestGCP()
+        {
+            Assert.True(VerifyCheckCharactersGcpModelChecks("123456789012","34567890123","NT"));
+        }
+
     }
 }
