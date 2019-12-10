@@ -70,7 +70,7 @@ namespace GS1
         }
 
         /// <summary>
-        /// Character to value map for cset82.
+        /// Calculates the check character pair for a given partial healthcare GMN.
         /// </summary>
         /// <param name="part">A partial healthcare GMN.</param>
         /// <returns>Check character pair.</returns>
