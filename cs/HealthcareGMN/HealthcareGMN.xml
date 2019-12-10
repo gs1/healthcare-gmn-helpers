@@ -55,9 +55,18 @@
         </member>
         <member name="M:GS1.HealthcareGMN.CheckCharacters(System.String)">
             <summary>
-            Character to value map for cset82.
+            Calculates the check character pair for a given partial healthcare GMN.
             </summary>
             <param name="part">A partial healthcare GMN.</param>
+            <returns>Check character pair.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="M:GS1.HealthcareGMN.CheckCharactersGcpModel(System.String,System.String)">
+            <summary>
+            Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.
+            </summary>
+            <param name="gcp">A GS1 Company Prefix.</param>
+            <param name="model">A model reference.</param>
             <returns>Check character pair.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         </member>
@@ -69,11 +78,30 @@
             <returns>A complete healthcare GMN including the check character pair.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         </member>
+        <member name="M:GS1.HealthcareGMN.AddCheckCharactersGcpModel(System.String,System.String)">
+            <summary>
+            Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.
+            </summary>
+            <param name="gcp">A GS1 Company Prefix.</param>
+            <param name="model">A model reference.</param>
+            <returns>A complete healthcare GMN including the check character pair.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
         <member name="M:GS1.HealthcareGMN.VerifyCheckCharacters(System.String)">
             <summary>
             Verify that a given healthcare GMN has a correct check character pair.
             </summary>
             <param name="gmn">A healthcare GMN.</param>
+            <returns>True if the healthcare GMN is has a valid check character pair. Otherwise false.</returns>
+            <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
+        </member>
+        <member name="M:GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks(System.String,System.String,System.String)">
+            <summary>
+            Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.
+            </summary>
+            <param name="gcp">A GS1 Company Prefix.</param>
+            <param name="model">A model reference.</param>
+            <param name="checks">A check character pair.</param>
             <returns>True if the healthcare GMN is has a valid check character pair. Otherwise false.</returns>
             <exception cref="T:GS1.GS1Exception">If the format of the given healthcare GMN is invalid.</exception>
         </member>
@@ -83,6 +111,23 @@
             </summary>
             <param name="gmn">A healthcare GMN.</param>
             <param name="complete">true if a GMN is being provided complete with a check character pair. Otherwise false.</param>
+            <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
+        </member>
+        <member name="M:GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks(System.String,System.String,System.String)">
+            <summary>
+            Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.
+            </summary>
+            <param name="gcp">A GS1 Company Prefix.</param>
+            <param name="model">A model reference.</param>
+            <param name="checks">A check character pair.</param>
+            <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
+        </member>
+        <member name="M:GS1.HealthcareGMN.GoodCharacterPositionsGcpModel(System.String,System.String)">
+            <summary>
+            Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference components, belongs to the appropriate character set for the character position.
+            </summary>
+            <param name="gcp">A GS1 Company Prefix.</param>
+            <param name="model">A model reference.</param>
             <returns>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</returns>
         </member>
         <member name="T:GS1.GS1Exception">

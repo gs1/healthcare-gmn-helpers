@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <meta name="title" content="Class HealthcareGMN
    ">
-    <meta name="generator" content="docfx 2.42.4.0">
+    <meta name="generator" content="docfx 2.44.0.0">
     
     <link rel="shortcut icon" href="favicon.ico">
     <link rel="stylesheet" href="styles/docfx.vendor.css">
@@ -130,9 +130,74 @@ limitations under the License.</p>
       </tr>
     </tbody>
   </table>
+  <a id="GS1_HealthcareGMN_AddCheckCharactersGcpModel_" data-uid="GS1.HealthcareGMN.AddCheckCharactersGcpModel*"></a>
+  <h4 id="GS1_HealthcareGMN_AddCheckCharactersGcpModel_System_String_System_String_" data-uid="GS1.HealthcareGMN.AddCheckCharactersGcpModel(System.String,System.String)">AddCheckCharactersGcpModel(String, String)</h4>
+  <div class="markdown level1 summary"><p>Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string AddCheckCharactersGcpModel(string gcp, string model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gcp</span></td>
+        <td><p>A GS1 Company Prefix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>A model reference.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>A complete healthcare GMN including the check character pair.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="GS1_HealthcareGMN_CheckCharacters_" data-uid="GS1.HealthcareGMN.CheckCharacters*"></a>
   <h4 id="GS1_HealthcareGMN_CheckCharacters_System_String_" data-uid="GS1.HealthcareGMN.CheckCharacters(System.String)">CheckCharacters(String)</h4>
-  <div class="markdown level1 summary"><p>Character to value map for cset82.</p>
+  <div class="markdown level1 summary"><p>Calculates the check character pair for a given partial healthcare GMN.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="decalaration">Declaration</h5>
@@ -153,6 +218,71 @@ limitations under the License.</p>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">part</span></td>
         <td><p>A partial healthcare GMN.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>Check character pair.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_CheckCharactersGcpModel_" data-uid="GS1.HealthcareGMN.CheckCharactersGcpModel*"></a>
+  <h4 id="GS1_HealthcareGMN_CheckCharactersGcpModel_System_String_System_String_" data-uid="GS1.HealthcareGMN.CheckCharactersGcpModel(System.String,System.String)">CheckCharactersGcpModel(String, String)</h4>
+  <div class="markdown level1 summary"><p>Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string CheckCharactersGcpModel(string gcp, string model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gcp</span></td>
+        <td><p>A GS1 Company Prefix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>A model reference.</p>
 </td>
       </tr>
     </tbody>
@@ -238,6 +368,110 @@ limitations under the License.</p>
       </tr>
     </tbody>
   </table>
+  <a id="GS1_HealthcareGMN_GoodCharacterPositionsGcpModel_" data-uid="GS1.HealthcareGMN.GoodCharacterPositionsGcpModel*"></a>
+  <h4 id="GS1_HealthcareGMN_GoodCharacterPositionsGcpModel_System_String_System_String_" data-uid="GS1.HealthcareGMN.GoodCharacterPositionsGcpModel(System.String,System.String)">GoodCharacterPositionsGcpModel(String, String)</h4>
+  <div class="markdown level1 summary"><p>Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference components, belongs to the appropriate character set for the character position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool[] GoodCharacterPositionsGcpModel(string gcp, string model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gcp</span></td>
+        <td><p>A GS1 Company Prefix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>A model reference.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span>[]</td>
+        <td><p>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_GoodCharacterPositionsGcpModelChecks_" data-uid="GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks*"></a>
+  <h4 id="GS1_HealthcareGMN_GoodCharacterPositionsGcpModelChecks_System_String_System_String_System_String_" data-uid="GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks(System.String,System.String,System.String)">GoodCharacterPositionsGcpModelChecks(String, String, String)</h4>
+  <div class="markdown level1 summary"><p>Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool[] GoodCharacterPositionsGcpModelChecks(string gcp, string model, string checks)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gcp</span></td>
+        <td><p>A GS1 Company Prefix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>A model reference.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checks</span></td>
+        <td><p>A check character pair.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span>[]</td>
+        <td><p>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="GS1_HealthcareGMN_VerifyCheckCharacters_" data-uid="GS1.HealthcareGMN.VerifyCheckCharacters*"></a>
   <h4 id="GS1_HealthcareGMN_VerifyCheckCharacters_System_String_" data-uid="GS1.HealthcareGMN.VerifyCheckCharacters(System.String)">VerifyCheckCharacters(String)</h4>
   <div class="markdown level1 summary"><p>Verify that a given healthcare GMN has a correct check character pair.</p>
@@ -261,6 +495,77 @@ limitations under the License.</p>
         <td><span class="xref">System.String</span></td>
         <td><span class="parametername">gmn</span></td>
         <td><p>A healthcare GMN.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the healthcare GMN is has a valid check character pair. Otherwise false.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="GS1.GS1Exception.html">GS1Exception</a></td>
+        <td><p>If the format of the given healthcare GMN is invalid.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="GS1_HealthcareGMN_VerifyCheckCharactersGcpModelChecks_" data-uid="GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks*"></a>
+  <h4 id="GS1_HealthcareGMN_VerifyCheckCharactersGcpModelChecks_System_String_System_String_System_String_" data-uid="GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks(System.String,System.String,System.String)">VerifyCheckCharactersGcpModelChecks(String, String, String)</h4>
+  <div class="markdown level1 summary"><p>Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool VerifyCheckCharactersGcpModelChecks(string gcp, string model, string checks)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">gcp</span></td>
+        <td><p>A GS1 Company Prefix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>A model reference.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">checks</span></td>
+        <td><p>A check character pair.</p>
 </td>
       </tr>
     </tbody>

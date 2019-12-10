@@ -45,6 +45,19 @@ references:
   isSpec: "True"
   fullName: GS1.HealthcareGMN.AddCheckCharacters
   nameWithType: HealthcareGMN.AddCheckCharacters
+- uid: GS1.HealthcareGMN.AddCheckCharactersGcpModel(System.String,System.String)
+  name: AddCheckCharactersGcpModel(String, String)
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_AddCheckCharactersGcpModel_System_String_System_String_
+  commentId: M:GS1.HealthcareGMN.AddCheckCharactersGcpModel(System.String,System.String)
+  fullName: GS1.HealthcareGMN.AddCheckCharactersGcpModel(System.String, System.String)
+  nameWithType: HealthcareGMN.AddCheckCharactersGcpModel(String, String)
+- uid: GS1.HealthcareGMN.AddCheckCharactersGcpModel*
+  name: AddCheckCharactersGcpModel
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_AddCheckCharactersGcpModel_
+  commentId: Overload:GS1.HealthcareGMN.AddCheckCharactersGcpModel
+  isSpec: "True"
+  fullName: GS1.HealthcareGMN.AddCheckCharactersGcpModel
+  nameWithType: HealthcareGMN.AddCheckCharactersGcpModel
 - uid: GS1.HealthcareGMN.CheckCharacters(System.String)
   name: CheckCharacters(String)
   href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_CheckCharacters_System_String_
@@ -58,6 +71,19 @@ references:
   isSpec: "True"
   fullName: GS1.HealthcareGMN.CheckCharacters
   nameWithType: HealthcareGMN.CheckCharacters
+- uid: GS1.HealthcareGMN.CheckCharactersGcpModel(System.String,System.String)
+  name: CheckCharactersGcpModel(String, String)
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_CheckCharactersGcpModel_System_String_System_String_
+  commentId: M:GS1.HealthcareGMN.CheckCharactersGcpModel(System.String,System.String)
+  fullName: GS1.HealthcareGMN.CheckCharactersGcpModel(System.String, System.String)
+  nameWithType: HealthcareGMN.CheckCharactersGcpModel(String, String)
+- uid: GS1.HealthcareGMN.CheckCharactersGcpModel*
+  name: CheckCharactersGcpModel
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_CheckCharactersGcpModel_
+  commentId: Overload:GS1.HealthcareGMN.CheckCharactersGcpModel
+  isSpec: "True"
+  fullName: GS1.HealthcareGMN.CheckCharactersGcpModel
+  nameWithType: HealthcareGMN.CheckCharactersGcpModel
 - uid: GS1.HealthcareGMN.GoodCharacterPositions(System.String,System.Boolean)
   name: GoodCharacterPositions(String, Boolean)
   href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_GoodCharacterPositions_System_String_System_Boolean_
@@ -71,6 +97,32 @@ references:
   isSpec: "True"
   fullName: GS1.HealthcareGMN.GoodCharacterPositions
   nameWithType: HealthcareGMN.GoodCharacterPositions
+- uid: GS1.HealthcareGMN.GoodCharacterPositionsGcpModel(System.String,System.String)
+  name: GoodCharacterPositionsGcpModel(String, String)
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_GoodCharacterPositionsGcpModel_System_String_System_String_
+  commentId: M:GS1.HealthcareGMN.GoodCharacterPositionsGcpModel(System.String,System.String)
+  fullName: GS1.HealthcareGMN.GoodCharacterPositionsGcpModel(System.String, System.String)
+  nameWithType: HealthcareGMN.GoodCharacterPositionsGcpModel(String, String)
+- uid: GS1.HealthcareGMN.GoodCharacterPositionsGcpModel*
+  name: GoodCharacterPositionsGcpModel
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_GoodCharacterPositionsGcpModel_
+  commentId: Overload:GS1.HealthcareGMN.GoodCharacterPositionsGcpModel
+  isSpec: "True"
+  fullName: GS1.HealthcareGMN.GoodCharacterPositionsGcpModel
+  nameWithType: HealthcareGMN.GoodCharacterPositionsGcpModel
+- uid: GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks(System.String,System.String,System.String)
+  name: GoodCharacterPositionsGcpModelChecks(String, String, String)
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_GoodCharacterPositionsGcpModelChecks_System_String_System_String_System_String_
+  commentId: M:GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks(System.String,System.String,System.String)
+  fullName: GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks(System.String, System.String, System.String)
+  nameWithType: HealthcareGMN.GoodCharacterPositionsGcpModelChecks(String, String, String)
+- uid: GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks*
+  name: GoodCharacterPositionsGcpModelChecks
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_GoodCharacterPositionsGcpModelChecks_
+  commentId: Overload:GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks
+  isSpec: "True"
+  fullName: GS1.HealthcareGMN.GoodCharacterPositionsGcpModelChecks
+  nameWithType: HealthcareGMN.GoodCharacterPositionsGcpModelChecks
 - uid: GS1.HealthcareGMN.VerifyCheckCharacters(System.String)
   name: VerifyCheckCharacters(String)
   href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_VerifyCheckCharacters_System_String_
@@ -84,3 +136,16 @@ references:
   isSpec: "True"
   fullName: GS1.HealthcareGMN.VerifyCheckCharacters
   nameWithType: HealthcareGMN.VerifyCheckCharacters
+- uid: GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks(System.String,System.String,System.String)
+  name: VerifyCheckCharactersGcpModelChecks(String, String, String)
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_VerifyCheckCharactersGcpModelChecks_System_String_System_String_System_String_
+  commentId: M:GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks(System.String,System.String,System.String)
+  fullName: GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks(System.String, System.String, System.String)
+  nameWithType: HealthcareGMN.VerifyCheckCharactersGcpModelChecks(String, String, String)
+- uid: GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks*
+  name: VerifyCheckCharactersGcpModelChecks
+  href: GS1.HealthcareGMN.html#GS1_HealthcareGMN_VerifyCheckCharactersGcpModelChecks_
+  commentId: Overload:GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks
+  isSpec: "True"
+  fullName: GS1.HealthcareGMN.VerifyCheckCharactersGcpModelChecks
+  nameWithType: HealthcareGMN.VerifyCheckCharactersGcpModelChecks
