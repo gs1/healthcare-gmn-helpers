@@ -261,7 +261,7 @@ function processUserInput(args)
     if (args.length != 2 || ((args[0] !== "verify") && (args[0] !== "complete")))
     {
         console.log("\nIncorrect arguments.\n");
-        console.log("Usage: java ExampleUser {verify|complete} gmn_data\n");
+        console.log("Usage: node exampleuser.node.js {verify|complete} gmn_data\n");
         process.exit(1);
     }
 
