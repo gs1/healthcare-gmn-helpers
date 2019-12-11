@@ -82,6 +82,7 @@ public class HealthcareGMNTests
         {
             verifyCheckCharacters("1987654Ad4X4bL5ttr2310£cxK");
         }
+
         @Test(expected = Exception.class)
         public void verifyCheckCharacters_InvalidCharacterAtCheck2() throws Exception
         {
@@ -182,6 +183,108 @@ public class HealthcareGMNTests
         public void verifyCheckCharacters_MaximumIntermediateSum() throws Exception
         {
             assertTrue(verifyCheckCharacters("99999zzzzzzzzzzzzzzzzzzT2"));
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_UsingExampleFromGenSpecs() throws Exception
+        {
+            assertTrue(verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2K"));
+        }
+
+        @Test
+        public void checkCharactersGcpModel_UsingExampleFromGenSpecs() throws Exception
+        {
+            assertEquals("2K",checkCharactersGcpModel("1987654","Ad4X4bL5ttr2310c"));
+        }
+
+        @Test
+        public void addCheckCharactersGcpModel_UsingExampleFromGenSpecs() throws Exception
+        {
+            assertEquals("1987654Ad4X4bL5ttr2310c2K", addCheckCharactersGcpModel("1987654","Ad4X4bL5ttr2310c"));
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_InvalidCheck1() throws Exception
+        {
+            assertFalse(verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","XK"));
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_InvalidCheck2() throws Exception
+        {
+            assertFalse(verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2X"));
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_CheckTooShort() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","3");
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_CheckTooLong() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("1987654","Ad4X4bL5ttr2310c","2KX");
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_GcpTooShort() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("1234","Ad4X4bL5ttr2310c","XX");
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_GcpNotTooShort() throws Exception
+        {
+            assertTrue(verifyCheckCharactersGcpModelChecks("12345","Ad4X4bL5ttr2310c","66"));
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_GcpTooLong() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("1234567890123","Ad4X4bL5","XX");
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_GcpNotTooLong() throws Exception
+        {
+            assertTrue(verifyCheckCharactersGcpModelChecks("123456789012","Ad4X4bL5ttr","3R"));
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_GcpNotNumeric() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("198765A","Ad4X4bL5ttr2310c","XX");
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_ModelEmpty() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("1987654","","3T");
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_OversizeShortestGCP() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("12345","6789012345678901234","XX");
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_NotOversizeShortestGCP() throws Exception
+        {
+            assertTrue(verifyCheckCharactersGcpModelChecks("12345","678901234567890123","NT"));
+        }
+
+        @Test(expected = Exception.class)
+        public void verifyCheckCharactersGcpModelChecks_OversizeLongestGCP() throws Exception
+        {
+            verifyCheckCharactersGcpModelChecks("123456789012","345678901234","XX");
+        }
+
+        @Test
+        public void verifyCheckCharactersGcpModelChecks_NotOversizeLongestGCP() throws Exception
+        {
+            assertTrue(verifyCheckCharactersGcpModelChecks("123456789012","34567890123","NT"));
         }
 
 }

@@ -110,6 +110,21 @@ public final class HealthcareGMN {
     }
 
     /**
+     * Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.
+     *
+     * @param gcp a GS1 Company Prefix.
+     * @param model a model reference.
+     * @return check character pair.
+     * @throws GS1Exception if the format of the given healthcare GMN is invalid.
+     */
+    public static String checkCharactersGcpModel(String gcp, String model)
+        throws GS1Exception
+    {
+        _formatChecksGcpModel(gcp, model);
+        return checkCharacters(gcp + model);
+    }
+
+    /**
      * Complete a given partial healthcare GMN by appending the check character pair.
      *
      * @param part a partial healthcare GMN.
@@ -120,6 +135,21 @@ public final class HealthcareGMN {
         throws GS1Exception
     {
         return part + checkCharacters(part);
+    }
+
+    /**
+     * Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.
+     *
+     * @param gcp a GS1 Company Prefix.
+     * @param model a model reference.
+     * @return a complete healthcare GMN including the check character pair.
+     * @throws GS1Exception if the format of the given healthcare GMN is invalid.
+     */
+    public static String addCheckCharactersGcpModel(String gcp, String model)
+        throws GS1Exception
+    {
+        _formatChecksGcpModel(gcp, model);
+        return addCheckCharacters(gcp + model);
     }
 
     /**
@@ -140,6 +170,22 @@ public final class HealthcareGMN {
         String suppliedChecks = gmn.substring(gmn.length() - 2, gmn.length());
 
         return checkCharacters(part).equals(suppliedChecks);
+    }
+
+    /**
+     * Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.
+     *
+     * @param gcp a GS1 Company Prefix.
+     * @param model a model reference.
+     * @param checks a check character pair.
+     * @return true if the healthcare GMN has a valid check character pair. Otherwise false.
+     * @throws GS1Exception if the format of the given healthcare GMN is invalid.
+     */
+    public static boolean verifyCheckCharactersGcpModelChecks(String gcp, String model, String checks)
+        throws GS1Exception
+    {
+        _formatChecksGcpModelChecks(gcp, model, checks);
+        return verifyCheckCharacters(gcp + model + checks);
     }
 
     /**
@@ -167,14 +213,51 @@ public final class HealthcareGMN {
         return out;
     };
 
-    // Perform some local consistency checks on the input
+    /**
+     * Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.
+     *
+     * @param gcp a GS1 Company Prefix.
+     * @param model a model reference.
+     * @param checks a check character pair.
+     * @return a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    public static boolean[] goodCharacterPositionsGcpModelChecks(String gcp, String model, String checks)
+    {
+        boolean[] out = goodCharacterPositions(gcp + model + checks, true);
+
+        // The GS1 Company Prefix is numeric only
+        for (int i = 0; i < gcp.length(); i++)
+            out[i] = Character.isDigit(gcp.charAt(i));
+
+        return out;
+    };
+
+    /**
+     * Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference, belongs to the appropriate character set for the character position.
+     *
+     * @param gcp a GS1 Company Prefix.
+     * @param model a model reference.
+     * @return a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.
+     */
+    public static boolean[] goodCharacterPositionsGcpModel(String gcp, String model)
+    {
+        boolean[] out = goodCharacterPositions(gcp + model, false);
+
+        // The GS1 Company Prefix is numeric only
+        for (int i = 0; i < gcp.length(); i++)
+            out[i] = Character.isDigit(gcp.charAt(i));
+
+        return out;
+    };
+
+    // Perform some local consistency checks on a partial or complete GMN string
     private static void _formatChecks(String input, boolean complete)
         throws GS1Exception
     {
         int maxLength = complete ? 25 : 23;
         int minLength = complete ? 8 : 6;
 
-        // Verify length
+        // Verify overall length
         if (input.length() < minLength)
             throw new GS1Exception("The input is too short. It should be at least " + minLength + " characters long" + ( complete ? "." : " excluding the check character pair." ) );
         if (input.length() > maxLength)
@@ -196,5 +279,45 @@ public final class HealthcareGMN {
         return;
     }
 
-}
+    // Perform some local consistency checks on the input provided as GS1 Company Prefix and model reference
+    private static void _formatChecksGcpModel(String gcp, String model)
+        throws GS1Exception
+    {
+         _formatChecksGcpModelChecks(gcp, model, null);
+    }
 
+    // Perform some local consistency checks on the input provided as GS1 Company Prefix, model reference and check characters
+    private static void _formatChecksGcpModelChecks(String gcp, String model, String checks)
+        throws GS1Exception
+    {
+
+         // Verify that the GS1 Company Prefix has the correct length
+         if (gcp.length() < 5)
+             throw new GS1Exception("The GS1 Company Prefix is too short. It should be at least 5 digits long.");
+         if (gcp.length() > 12)
+             throw new GS1Exception("The GS1 Company Prefix is too long. It should be less than 12 digits long.");
+
+         // Verify that the model reference contains at least one character
+         if (model.length() < 1)
+             throw new GS1Exception("The model reference must contain at least one character.");
+
+         // Verify that the GS1 Company Prefix is numeric only
+         boolean[] goodCharacters = goodCharacterPositionsGcpModel(gcp, model);
+         for (int i = 0; i < gcp.length(); i++)
+             if (!goodCharacters[i])
+                 throw new GS1Exception("The GS1 Company Prefix must only contain digits.");
+
+         // If given, verify that the check is the correct length
+         if (checks != null && checks.length() != 2)
+            throw new GS1Exception("The check must be 2 characters long.");
+
+         // Perform more format checks on the overall GMN
+         if (checks == null)
+             _formatChecks(gcp + model, false);
+         else
+             _formatChecks(gcp + model + checks, true);
+
+         return;
+    }
+
+}
