@@ -94,9 +94,9 @@ public final class HealthcareGMN {
         // Characters are compared with the rightmost weights
         int offset = 23 - part.length();
 
-	// Modulo 1021 sum of the products of the character values and their
-	// corresponding weights
-	int sum = 0;
+        // Modulo 1021 sum of the products of the character values and their
+        // corresponding weights
+        int sum = 0;
         for (int i=0; i < part.length(); i++)
         {
                 short c = cset82value.get(part.charAt(i));
