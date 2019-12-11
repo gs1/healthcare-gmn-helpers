@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":9,"i2":9,"i3":9};
+var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -165,12 +165,28 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addCheckCharactersGcpModel(java.lang.String,java.lang.String)">addCheckCharactersGcpModel</a></span>&#8203;(java.lang.String&nbsp;gcp,
+                          java.lang.String&nbsp;model)</code></th>
+<td class="colLast">
+<div class="block">Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkCharacters(java.lang.String)">checkCharacters</a></span>&#8203;(java.lang.String&nbsp;part)</code></th>
 <td class="colLast">
 <div class="block">Calculates the check character pair for a given partial healthcare GMN.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#checkCharactersGcpModel(java.lang.String,java.lang.String)">checkCharactersGcpModel</a></span>&#8203;(java.lang.String&nbsp;gcp,
+                       java.lang.String&nbsp;model)</code></th>
+<td class="colLast">
+<div class="block">Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static boolean[]</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#goodCharacterPositions(java.lang.String,boolean)">goodCharacterPositions</a></span>&#8203;(java.lang.String&nbsp;gmn,
                       boolean&nbsp;complete)</code></th>
@@ -178,11 +194,37 @@ extends java.lang.Object</pre>
 <div class="block">Indicate whether each character in a given GMN belongs to the appropriate character set for the character position.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>static boolean[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#goodCharacterPositionsGcpModel(java.lang.String,java.lang.String)">goodCharacterPositionsGcpModel</a></span>&#8203;(java.lang.String&nbsp;gcp,
+                              java.lang.String&nbsp;model)</code></th>
+<td class="colLast">
+<div class="block">Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference, belongs to the appropriate character set for the character position.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static boolean[]</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#goodCharacterPositionsGcpModelChecks(java.lang.String,java.lang.String,java.lang.String)">goodCharacterPositionsGcpModelChecks</a></span>&#8203;(java.lang.String&nbsp;gcp,
+                                    java.lang.String&nbsp;model,
+                                    java.lang.String&nbsp;checks)</code></th>
+<td class="colLast">
+<div class="block">Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyCheckCharacters(java.lang.String)">verifyCheckCharacters</a></span>&#8203;(java.lang.String&nbsp;gmn)</code></th>
 <td class="colLast">
 <div class="block">Verify that a given healthcare GMN has a correct check character pair.</div>
+</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>static boolean</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#verifyCheckCharactersGcpModelChecks(java.lang.String,java.lang.String,java.lang.String)">verifyCheckCharactersGcpModelChecks</a></span>&#8203;(java.lang.String&nbsp;gcp,
+                                   java.lang.String&nbsp;model,
+                                   java.lang.String&nbsp;checks)</code></th>
+<td class="colLast">
+<div class="block">Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.</div>
 </td>
 </tr>
 </table>
@@ -228,6 +270,27 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="checkCharactersGcpModel(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>checkCharactersGcpModel</h4>
+<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;checkCharactersGcpModel&#8203;(java.lang.String&nbsp;gcp,
+                                                       java.lang.String&nbsp;model)
+                                                throws <a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></pre>
+<div class="block">Calculates the check character pair for a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gcp</code> - a GS1 Company Prefix.</dd>
+<dd><code>model</code> - a model reference.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>check character pair.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></code> - if the format of the given healthcare GMN is invalid.</dd>
+</dl>
+</li>
+</ul>
 <a id="addCheckCharacters(java.lang.String)">
 <!--   -->
 </a>
@@ -240,6 +303,27 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>part</code> - a partial healthcare GMN.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a complete healthcare GMN including the check character pair.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></code> - if the format of the given healthcare GMN is invalid.</dd>
+</dl>
+</li>
+</ul>
+<a id="addCheckCharactersGcpModel(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addCheckCharactersGcpModel</h4>
+<pre class="methodSignature">public static&nbsp;java.lang.String&nbsp;addCheckCharactersGcpModel&#8203;(java.lang.String&nbsp;gcp,
+                                                          java.lang.String&nbsp;model)
+                                                   throws <a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></pre>
+<div class="block">Complete a given partial healthcare GMN, provided as GS1 Company Prefix and model reference components, by appending the check character pair.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gcp</code> - a GS1 Company Prefix.</dd>
+<dd><code>model</code> - a model reference.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a complete healthcare GMN including the check character pair.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -266,10 +350,33 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
+<a id="verifyCheckCharactersGcpModelChecks(java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>verifyCheckCharactersGcpModelChecks</h4>
+<pre class="methodSignature">public static&nbsp;boolean&nbsp;verifyCheckCharactersGcpModelChecks&#8203;(java.lang.String&nbsp;gcp,
+                                                          java.lang.String&nbsp;model,
+                                                          java.lang.String&nbsp;checks)
+                                                   throws <a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></pre>
+<div class="block">Verify that a given healthcare GMN, provided as GS1 Company Prefix, model reference and check character components, has a correct check character pair.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gcp</code> - a GS1 Company Prefix.</dd>
+<dd><code>model</code> - a model reference.</dd>
+<dd><code>checks</code> - a check character pair.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the healthcare GMN has a valid check character pair. Otherwise false.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="GS1Exception.html" title="class in org.gs1">GS1Exception</a></code> - if the format of the given healthcare GMN is invalid.</dd>
+</dl>
+</li>
+</ul>
 <a id="goodCharacterPositions(java.lang.String,boolean)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>goodCharacterPositions</h4>
 <pre class="methodSignature">public static&nbsp;boolean[]&nbsp;goodCharacterPositions&#8203;(java.lang.String&nbsp;gmn,
@@ -279,6 +386,44 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>gmn</code> - a full or partial healthcare GMN.</dd>
 <dd><code>complete</code> - true if a GMN is being provided complete with a check character pair. Otherwise false.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</dd>
+</dl>
+</li>
+</ul>
+<a id="goodCharacterPositionsGcpModelChecks(java.lang.String,java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>goodCharacterPositionsGcpModelChecks</h4>
+<pre class="methodSignature">public static&nbsp;boolean[]&nbsp;goodCharacterPositionsGcpModelChecks&#8203;(java.lang.String&nbsp;gcp,
+                                                             java.lang.String&nbsp;model,
+                                                             java.lang.String&nbsp;checks)</pre>
+<div class="block">Indicate whether each character in a given GMN, provided as GS1 Company Prefix, model reference and check character components, belongs to the appropriate character set for the character position.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gcp</code> - a GS1 Company Prefix.</dd>
+<dd><code>model</code> - a model reference.</dd>
+<dd><code>checks</code> - a check character pair.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</dd>
+</dl>
+</li>
+</ul>
+<a id="goodCharacterPositionsGcpModel(java.lang.String,java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>goodCharacterPositionsGcpModel</h4>
+<pre class="methodSignature">public static&nbsp;boolean[]&nbsp;goodCharacterPositionsGcpModel&#8203;(java.lang.String&nbsp;gcp,
+                                                       java.lang.String&nbsp;model)</pre>
+<div class="block">Indicate whether each character in a given GMN, provided as GS1 Company Prefix and model reference, belongs to the appropriate character set for the character position.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>gcp</code> - a GS1 Company Prefix.</dd>
+<dd><code>model</code> - a model reference.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a boolean array matching each input character: true if the character belongs to the appropriate set. Otherwise false.</dd>
 </dl>
