@@ -294,7 +294,7 @@ var HealthcareGMN = (function () {
         if (gcp.length < 5)
             throw "The GS1 Company Prefix is too short. It should be at least 5 digits long.";
         if (gcp.length > 12)
-            throw "The GS1 Company Prefix is too long. It should be less than 12 digits long.";
+            throw "The GS1 Company Prefix is too long. It should not be more than 12 digits long.";
 
         // Verify that the model reference contains at least one character
         if (model.length < 1)
