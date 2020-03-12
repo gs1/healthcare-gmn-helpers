@@ -93,8 +93,8 @@ verification utility:
     The check characters are NOT valid
 
 
-Recreating the JAR package
---------------------------
+Recreating the JAR package for the library
+------------------------------------------
 
 From this source directory:
 
@@ -109,3 +109,11 @@ From this source directory:
 
     javadoc -d docs org.gs1
 
+
+Creating a standalone JAR package for the example application
+-------------------------------------------------------------
+
+From this source directory:
+
+    javac ExampleUser.java
+    jar -cvfm ExampleUser.jar Manifest.txt org/gs1/*.class ExampleUser.class
