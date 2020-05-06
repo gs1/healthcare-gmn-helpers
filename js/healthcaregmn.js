@@ -53,7 +53,8 @@ var HealthcareGMN = (function () {
      * @private
      */
     var cset82value = {};
-    for (var i = 0; i < cset82.length; i++)
+    var i;
+    for (i = 0; i < cset82.length; i++)
         cset82value[ cset82[i] ] = i;
 
     /**
@@ -61,7 +62,7 @@ var HealthcareGMN = (function () {
      * @private
      */
     var cset32value = {};
-    for (var i = 0; i < cset32.length; i++)
+    for (i = 0; i < cset32.length; i++)
         cset32value[ cset32[i] ] = i;
 
     /**
@@ -218,12 +219,13 @@ var HealthcareGMN = (function () {
         var out = goodCharacterPositions(gcp + model + checks, true);
 
         // The GS1 Company Prefix is numeric only
-        for (var i = 0; i < gcp.length; i++)
+        var i;
+        for (i = 0; i < gcp.length; i++)
             out[i] = "0123456789".indexOf( gcp[i] ) != -1;
 
         // Define all characters of the GS1 Company Prefix to be bad if the length is incorrect
         if (gcp.length < 5 || gcp.length > 12)
-            for (var i = 0; i < gcp.length; i++)
+            for (i = 0; i < gcp.length; i++)
                 out[i] = false;
 
         return out;
@@ -242,12 +244,13 @@ var HealthcareGMN = (function () {
         var out = goodCharacterPositions(gcp + model, false);
 
         // The GS1 Company Prefix is numeric only
-        for (var i = 0; i < gcp.length; i++)
+        var i;
+        for (i = 0; i < gcp.length; i++)
             out[i] = "0123456789".indexOf( gcp[i] ) != -1;
 
         // Define all characters of the GS1 Company Prefix to be bad if the length is incorrect
         if (gcp.length < 5 || gcp.length > 12)
-            for (var i = 0; i < gcp.length; i++)
+            for (i = 0; i < gcp.length; i++)
                 out[i] = false;
 
         return out;
