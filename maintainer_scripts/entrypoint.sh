@@ -29,5 +29,5 @@ export HOME=/tmp
 dotnet build HealthcareGMN/HealthcareGMN.csproj
 dotnet test HealthcareGMNTests/HealthcareGMNTests.csproj
 dotnet pack -c Release -o app HealthcareGMN/HealthcareGMN.csproj
-cp HealthcareGMN/app/HealthcareGMN.*.nupkg .
+cp app/HealthcareGMN.*.nupkg .
 
