@@ -92,7 +92,7 @@ public final class HealthcareGMN {
          */
 
         // Characters are compared with the rightmost weights
-        int offset = 23 - part.length();
+        int offset = weights.length - part.length();
 
         // Modulo 1021 sum of the products of the character values and their
         // corresponding weights
@@ -254,7 +254,7 @@ public final class HealthcareGMN {
     private static void _formatChecks(String input, boolean complete)
         throws GS1Exception
     {
-        int maxLength = complete ? 25 : 23;
+        int maxLength = complete ? weights.length + 2 : weights.length;
         int minLength = complete ? 8 : 6;
 
         // Verify overall length

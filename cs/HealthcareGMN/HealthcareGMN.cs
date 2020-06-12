@@ -85,7 +85,7 @@ namespace GS1
              */
 
             // Characters are compared with the rightmost weights
-            int offset = 23 - part.Length;
+            int offset = weights.Length - part.Length;
 
             // Sum the products of the character values and corresponding weights modulo 1021
             int sum = 0;
@@ -235,7 +235,7 @@ namespace GS1
         // Perform some local consistency checks on a partial or complete GMN string
         private static void _FormatChecks(string input, bool complete)
         {
-            int maxLength = complete ? 25 : 23;
+            int maxLength = complete ? weights.Length + 2 : weights.Length;
             int minLength = complete ? 8 : 6;
 
             // Verify overall length

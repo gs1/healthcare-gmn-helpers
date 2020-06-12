@@ -83,7 +83,7 @@ var HealthcareGMN = (function () {
          */
 
         // Characters are compared with the rightmost weights
-        var offset = 23 - part.length;
+        var offset = weights.length - part.length;
 
         // Modulo 1021 sum of the products of the character values and their
         // corresponding weights
@@ -258,7 +258,7 @@ var HealthcareGMN = (function () {
 
     // Perform some local consistency checks on a partial or complete GMN string
     var _formatChecks = function (input, complete) {
-        var maxLength = complete ? 25 : 23;
+        var maxLength = complete ? weights.length + 2 : weights.length;
         var minLength = complete ? 8 : 6;
 
         // Verify overall length
