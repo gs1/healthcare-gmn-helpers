@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareGMN", "Healthcare
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareGMNTests", "HealthcareGMNTests\HealthcareGMNTests.csproj", "{F8410394-F94D-49BB-8287-802E71CA9E30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "docfx_project", "docfx_project\docfx_project.csproj", "{67054E8F-3F21-4872-AEAD-117A442E42B2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

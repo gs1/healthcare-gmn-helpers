@@ -61,7 +61,7 @@ Running the example application
 From this source directory:
 
     dotnet publish -o app GS1HealthcareGMN.sln
-    cd ExampleUser/app/
+    cd app/
     dotnet ExampleUser.dll
 
 When the example application is run without command line arguments it will
