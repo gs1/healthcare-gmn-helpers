@@ -24,3 +24,6 @@ hs_err_pid*
 
 # Standalone example application
 ExampleUser.jar
+
+# Build directory
+target/
