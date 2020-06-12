@@ -1,4 +1,4 @@
-name: .NET Core
+name: .NET Core (Linux)
 
 on:
   push:
@@ -29,3 +29,7 @@ jobs:
       run: |
         cd cs
         dotnet test HealthcareGMNTests/HealthcareGMNTests.csproj --no-restore --verbosity normal
+    - uses: nikeee/docfx-action@master
+      name: Generate docfx documentation
+      with:
+        args: cs/docfx_project/docfx.json
