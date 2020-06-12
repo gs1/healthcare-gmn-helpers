@@ -1,5 +1,5 @@
 /*
- * Example user of the helper library.
+ * Healthcare GMN check digit generator and verifier example user.
  *
  * The associated library is a check character generator and verifier for a GS1
  * GMN that is used for Regulated Healthcare medical devices that fall under
@@ -168,10 +168,10 @@ class ExampleUser
         while (true) {
 
             System.out.println("\nPlease select an option:\n");
-            System.out.println("  c  - Complete a partial GMN by adding check digits");
-            System.out.println("  v  - Verify the check digits of a complete GMN");
-            System.out.println("  cf - Complete partial GMNs supplied on each line of a file");
-            System.out.println("  vf - Verify complete GMNs supplied on each line of a file");
+            System.out.println("  c  - Complete a partial healthcare GMN by adding check digits");
+            System.out.println("  v  - Verify the check digits of a complete healthcare GMN");
+            System.out.println("  cf - Complete partial healthcare GMNs supplied on each line of a file");
+            System.out.println("  vf - Verify complete healthcare GMNs supplied on each line of a file");
             System.out.println("  q  - Quit");
             System.out.print("\nEnter option (c/v/cf/vf/q)? ");
             String opt = scanner.nextLine();
@@ -180,12 +180,12 @@ class ExampleUser
             if (opt.equals("q"))
                 break;
 
-            // Verify a GMN
+            // Verify a healthcare GMN
             if (opt.equals("v"))
             {
                 try
                 {
-                    System.out.print("\nPlease supply a GMN to verify: ");
+                    System.out.print("\nPlease supply a healthcare GMN to verify: ");
                     String gmn = scanner.nextLine();
                     boolean valid = HealthcareGMN.verifyCheckCharacters(gmn);
                     System.out.println("Outcome: " + (valid ? "*** Valid ***" : "*** Not valid ***") );
@@ -197,15 +197,15 @@ class ExampleUser
                 continue;
             }
 
-            // Complete a partial GMN
+            // Complete a partial healthcare GMN
             if (opt.equals("c"))
             {
                 try
                 {
-                    System.out.print("\nPlease supply a partial GMN to complete: ");
+                    System.out.print("\nPlease supply a partial healthcare GMN to complete: ");
                     String gmn = scanner.nextLine();
                     String complete = HealthcareGMN.addCheckCharacters(gmn);
-                    System.out.println("Complete GMN: " + complete);
+                    System.out.println("Complete healthcare GMN: " + complete);
                 }
                 catch (GS1Exception e)
                 {

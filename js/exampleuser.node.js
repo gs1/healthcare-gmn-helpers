@@ -115,7 +115,7 @@ try
     gmn = HealthcareGMN.addCheckCharacters(partialGMN);
 
     console.log("Partial:  " + partialGMN);
-    console.log("Full GMN: " + gmn);
+    console.log("Full healthcare GMN: " + gmn);
     console.log();
 
 }
@@ -145,7 +145,7 @@ try
 
     // Contatenate to produce the complete healthcare GMN
     gmn = partialGMN + checkCharacters;
-    console.log("Full GMN: " + gmn);
+    console.log("Full healthcare GMN: " + gmn);
 
     console.log();
 
@@ -168,10 +168,10 @@ for (;;)
 {
 
     console.log("\nPlease select an option:\n");
-    console.log("  c  - Complete a partial GMN by adding check digits");
-    console.log("  v  - Verify the check digits of a complete GMN");
-    console.log("  cf - Complete partial GMNs supplied on each line of a file");
-    console.log("  vf - Verify complete GMNs supplied on each line of a file");
+    console.log("  c  - Complete a partial healthcare GMN by adding check digits");
+    console.log("  v  - Verify the check digits of a complete healthcare GMN");
+    console.log("  cf - Complete partial healthcare GMNs supplied on each line of a file");
+    console.log("  vf - Verify complete healthcare GMNs supplied on each line of a file");
     console.log("  q  - Quit");
 
     var opt = rl.question("\nEnter option (c/v/cf/vf/q)? ");
@@ -180,12 +180,12 @@ for (;;)
     if (opt === "q")
         break;
 
-    // Verify a GMN
+    // Verify a healthcare GMN
     if (opt ===  "v")
     {
         try
         {
-            gmn = rl.question("\nPlease supply a GMN to verify: ");
+            gmn = rl.question("\nPlease supply a healthcare GMN to verify: ");
             valid = HealthcareGMN.verifyCheckCharacters(gmn);
             console.log("Outcome: " + (valid ? "*** Valid ***" : "*** Not valid ***") );
         }
@@ -196,14 +196,14 @@ for (;;)
         continue;
     }
 
-    // Complete a partial GMN
+    // Complete a partial healthcare GMN
     if (opt === "c")
     {
         try
         {
-            gmn = rl.question("\nPlease supply a partial GMN to complete: ");
+            gmn = rl.question("\nPlease supply a partial healthcare GMN to complete: ");
             complete = HealthcareGMN.addCheckCharacters(gmn);
-            console.log("Complete GMN: " + complete);
+            console.log("Complete healthcare GMN: " + complete);
         }
         catch (e)
         {

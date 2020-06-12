@@ -1,6 +1,11 @@
 /*
  * These are unit tests for the public methods of the helper API.
  *
+ * The associated library is a check character generator and verifier for a GS1
+ * GMN that is used for Regulated Healthcare medical devices that fall under
+ * the EU regulations EU MDR 2017/745 and EU IVDR 2017/746. Herein refered to
+ * as a "healthcare GMN".
+ *
  * You should rerun these tests if you modify the library in any way.
  *
  * Alternatively, if you reimplement the library then you can simply run the

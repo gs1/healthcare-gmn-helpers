@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 
 <!--
-  GMN check digit generator and verifier example.
+  Healthcare GMN check digit generator and verifier example.
+
+  The associated library is a check character generator and verifier for a GS1
+  GMN that is used for Regulated Healthcare medical devices that fall under
+  the EU regulations EU MDR 2017/745 and EU IVDR 2017/746. Herein refered to
+  as a "healthcare GMN".
 
   Copyright (c) 2019 GS1 AISBL.
 
@@ -35,8 +40,8 @@
  * Example error handler
  *
  * err:      The exception that was raised
- * input:    A partial or complete GMN as supplied.
- * complete: True if input represents a complete GMN, i.e. for verify.
+ * input:    A partial or complete healthcare GMN as supplied.
+ * complete: True if input represents a complete healthcare GMN, i.e. for verify.
  *
  */
 function _handleerror(err,input,complete)
@@ -59,7 +64,7 @@ function _handleerror(err,input,complete)
 /*
  *  Example: HealthcareGMN.verifyCheckCharacters
  *
- *  Verifying the check characters of a GMN.
+ *  Verifying the check characters of a healthcare GMN.
  *
  */
 function verify ()
@@ -76,7 +81,7 @@ function verify ()
         if (HealthcareGMN.verifyCheckCharacters(input)) {
             output = "Valid"
             shoutout = input;
-        } else {  // Otherwise the user-provided GMN is incorrect
+        } else {  // Otherwise the user-provided healthcare GMN is incorrect
 
             // We strip the provided check character pair from the input...
             var part = input.substring(0, input.length - 2);
@@ -103,7 +108,7 @@ function verify ()
 /*
  *  Example: HealthcareGMN.addCheckCharacters
  *
- *  Adding the check characters to an incomplete GMN.
+ *  Adding the check characters to an incomplete healthcare GMN.
  *
  */
 function addChecks ()
@@ -191,8 +196,8 @@ function inputEvent2 ()
  * Example error handler
  *
  * err:      The exception that was raised
- * input:    A partial or complete GMN as supplied.
- * complete: True if input represents a complete GMN, i.e. for verify.
+ * input:    A partial or complete healthcare GMN as supplied.
+ * complete: True if input represents a complete healthcare GMN, i.e. for verify.
  *
  */
 function _handleerror2(err,gcp,model,checks)
@@ -229,7 +234,7 @@ function _handleerror2(err,gcp,model,checks)
 /*
  *  Example: HealthcareGMN.verifyCheckCharactersGcpModelChecks
  *
- *  Verifying the check characters of a GMN.
+ *  Verifying the check characters of a healthcare GMN.
  *
  */
 function verify2 ()
@@ -248,7 +253,7 @@ function verify2 ()
         if (HealthcareGMN.verifyCheckCharactersGcpModelChecks(gcp,model,checks)) {
             output = "Valid"
             shoutout = '<u>' + gcp + '</u>' + model + '<span style="color: #0f0">' + checks + '</span>';
-        } else {  // Otherwise the user-provided GMN is incorrect
+        } else {  // Otherwise the user-provided healthcare GMN is incorrect
 
             // ... calculate the correct check character pair and show the user
             var correctChecks = HealthcareGMN.checkCharactersGcpModel(gcp,model);
@@ -272,7 +277,7 @@ function verify2 ()
 /*
  *  Example: HealthcareGMN.addCheckCharactersGcpModel
  *
- *  Adding the check characters to an incomplete GMN.
+ *  Adding the check characters to an incomplete healthcare GMN.
  *
  */
 function addChecks2 ()
@@ -338,10 +343,10 @@ function showChecks2 ()
 
 
 <!--
-    Section for GMN input provided as a single field
+    Section for healthcare GMN input provided as a single field
 -->
 
-<p>GMN provided as a single field</p>
+<p>Healthcare GMN provided as a single field</p>
 
 <table>
 
@@ -378,10 +383,10 @@ function showChecks2 ()
 
 
 <!--
-    Section for GMN input provided as seperate fields
+    Section for healthcare GMN input provided as seperate fields
 -->
 
-<p>GMN provided as separate fields</p>
+<p>Healthcare GMN provided as separate fields</p>
 
 <table>
 

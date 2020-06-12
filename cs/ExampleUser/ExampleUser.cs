@@ -1,5 +1,10 @@
 ﻿/*
- * GMN check digit generator and verifier example user.
+ * Healthcare GMN check digit generator and verifier example user.
+ *
+ * The associated library is a check character generator and verifier for a GS1
+ * GMN that is used for Regulated Healthcare medical devices that fall under
+ * the EU regulations EU MDR 2017/745 and EU IVDR 2017/746. Herein refered to
+ * as a "healthcare GMN".
  *
  * Copyright (c) 2019 GS1 AISBL.
  *
@@ -47,7 +52,7 @@ namespace ExampleUser
             /*
              * Example: GS1.HealthcareGMN.VerifyCheckCharacters
              *
-             * Verifying the check characters of a GMN.
+             * Verifying the check characters of a healthcare GMN.
              *
              */
             try
@@ -68,11 +73,11 @@ namespace ExampleUser
 
                 if (valid)
                 {
-                    Console.WriteLine("This GMN has correct check characters: " + gmn);
+                    Console.WriteLine("This healthcare GMN has correct check characters: " + gmn);
                 }
                 else
                 {
-                    Console.WriteLine("This GMN has incorrect check characters: " + gmn);
+                    Console.WriteLine("This healthcare GMN has incorrect check characters: " + gmn);
                 }
                 Console.WriteLine();
 
@@ -87,7 +92,7 @@ namespace ExampleUser
             /*
              * Example: GS1.HealthcareGMN.AddCheckCharacters
              *
-             * Adding the check characters to an incomplete GMN.
+             * Adding the check characters to an incomplete healthcare GMN.
              *
              */
             try
@@ -120,7 +125,7 @@ namespace ExampleUser
             /*
              * Example: GS1.HealthcareGMN.CheckCharacters
              *
-             * Returning just the check characters, then completing the GMN
+             * Returning just the check characters, then completing the healthcare GMN
              *
              */
             try
@@ -134,9 +139,9 @@ namespace ExampleUser
                 Console.WriteLine("Partial:  " + partialGMN);
                 Console.WriteLine("Checks:   " + checkCharacters);
 
-                // Contatenate to produce the complete GMN
+                // Contatenate to produce the complete healthcare GMN
                 string gmn = partialGMN + checkCharacters;
-                Console.WriteLine("Full GMN: " + gmn);
+                Console.WriteLine("Full healthcare GMN: " + gmn);
 
                 Console.WriteLine();
 
@@ -158,10 +163,10 @@ namespace ExampleUser
             while (true) {
 
                 Console.WriteLine("\nPlease select an option:\n");
-                Console.WriteLine("  c  - Complete a partial GMN by adding check digits");
-                Console.WriteLine("  v  - Verify the check digits of a complete GMN");
-                Console.WriteLine("  cf - Complete partial GMNs supplied on each line of a file");
-                Console.WriteLine("  vf - Verify complete GMNs supplied on each line of a file");
+                Console.WriteLine("  c  - Complete a partial healthcare GMN by adding check digits");
+                Console.WriteLine("  v  - Verify the check digits of a complete healthcare GMN");
+                Console.WriteLine("  cf - Complete partial healthcare GMNs supplied on each line of a file");
+                Console.WriteLine("  vf - Verify complete healthcare GMNs supplied on each line of a file");
                 Console.WriteLine("  q  - Quit");
                 Console.Write("\nEnter option (c/v/cf/vf/q)? ");
                 string opt = Console.ReadLine();
@@ -170,12 +175,12 @@ namespace ExampleUser
                 if (opt.Equals("q"))
                     break;
 
-                // Verify a GMN
+                // Verify a healthcare GMN
                 if (opt.Equals("v"))
                 {
                     try
                     {
-                        Console.Write("\nPlease supply a GMN: ");
+                        Console.Write("\nPlease supply a healthcare GMN: ");
                         String gmn = Console.ReadLine();
                         bool valid = HealthcareGMN.VerifyCheckCharacters(gmn);
                         Console.WriteLine("Outcome: " + (valid ? "*** Valid ***" : "*** Not valid ***"));
@@ -187,15 +192,15 @@ namespace ExampleUser
                     continue;
                 }
 
-                // Complete a partial GMN
+                // Complete a partial healthcare GMN
                 if (opt.Equals("c"))
                 {
                     try
                     {
-                        Console.Write("\nPlease supply a partial GMN to complete: ");
+                        Console.Write("\nPlease supply a partial healthcare GMN to complete: ");
                         String gmn = Console.ReadLine();
                         String complete = HealthcareGMN.AddCheckCharacters(gmn);
-                        Console.WriteLine("Complete GMN: " + complete);
+                        Console.WriteLine("Complete healthcare GMN: " + complete);
                     }
                     catch (GS1Exception e)
                     {

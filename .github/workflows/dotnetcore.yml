@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         cd cs
-        dotnet restore GS1GMN.sln
+        dotnet restore GS1HealthcareGMN.sln
     - name: Build
       run: |
         cd cs
