@@ -48,11 +48,11 @@ later or MSBuild 15 or later.
 
 From this source directory:
 
-    dotnet build GS1GMN.sln
+    dotnet build GS1HealthcareGMN.sln
 
 If you have modified the class then you should run the tests using xUnit.NET:
 
-    dotnet test GS1GMN.sln
+    dotnet test GS1HealthcareGMN.sln
 
 
 Running the example application
@@ -60,7 +60,7 @@ Running the example application
 
 From this source directory:
 
-    dotnet publish -o app GS1GMN.sln
+    dotnet publish -o app GS1HealthcareGMN.sln
     cd ExampleUser/app/
     dotnet ExampleUser.dll
 
