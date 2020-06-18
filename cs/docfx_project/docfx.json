@@ -25,7 +25,8 @@
     "fileMetadataFiles": [],
     "globalMetadata": {
       "_disableNavbar": true,
-      "_disableContribution": true
+      "_disableContribution": true,
+      "_docfxVersion": ""
     },
     "template": [
       "default"
