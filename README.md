@@ -1,5 +1,5 @@
-GS1 Healthcare GMN Helper Libraries
-===================================
+GS1 Healthcare GMN Helper Libraries (deprecated)
+================================================
 
 The GS1 Healthcare GMN Helper Libraries is an open source project that contains
 a set of official helper libraries written by GS1 for check character pair
@@ -8,79 +8,30 @@ Regulated Healthcare medical devices that fall under the EU regulations EU MDR
 2017/745 and EU IVDR 2017/746, specifically when a GMN is used as the embodiment
 of a Basic UDI-DI.
 
+**Note:** With the GS1 General Specifications Release 21.0 in January 2021, all
+uses of the GS1 Global Model Number have now been harmonized. The GMN is
+universally a 25-character maximum length identifier that is protected by the
+same standard check character pair validation algorithm, irrespective of the
+application (whether healthcare or otherwise).
 
-Check Character Generation and Validation
------------------------------------------
+**A new, universal release of the Global Model Number helper libraries has been
+published and all users should now migrate to this:**
+<https://github.com/gs1/gmn-helpers>
 
-The unique constraints placed upon the check character scheme for a GMN encoding
-a Basic UDI-DI identifier have resulted in an error detection algorithm that is
-unlike other error detection schemes currently in use for GS1 structured data.
-When used alongside the GS1 General Specifications these libraries are intended
-to simplify adoption of GS1 GMN for healthcare purposes and to minimise the
-likelihood of a flawed implementation of the error detection scheme making it into
-open use.
+The code in the new release is functionally equivalent to this library in every
+way with the exception that the class name has been amended from
+`HealthcareGMN` to `GMN` to reflect the now-universal definition of the GMN.
 
-The error detection scheme for a GMN encoding a Basic UDI-DI is non-trivial: It
-is the sum of the products of data character values with decreasing prime weights,
-modulo a large prime, with the resulting value being represented by appending two
-check characters from an alphanumeric subset of the original data character set
-selected by partitioning the value bitwise in two.
+Whereas you might have previously called a library method with:
 
-This project not only demonstrates clearly how to implement the details of this
-algorithm in different well-known programming languages, but each library can
-be relied upon as an accurate implementation of the check character pair
-generation and validation processes.
+    bool valid = HealthcareGMN.VerifyCheckCharacters("1987654Ad4X4bL5ttr2310c2K");
 
+With the new library you would call the same method with:
 
-Designed for Study
-------------------
+    bool valid = GMN.VerifyCheckCharacters("1987654Ad4X4bL5ttr2310c2K");
 
-The libraries are provided in source form which is clearly structured and
-descriptively commented enabling developers to research precisely what is
-required to create an implementation of the specification with whatever
-development platform they are using.
-
-Furthermore, the libraries each include comprehensive unit tests that can be
-re-purposed and applied to a specialised implementation to ensure results that
-are consistent with a correct implementation of the standard.
-
-
-Designed for Integration
-------------------------
-
-In addition to source form, the libraries are provided in standard packaged
-formats, e.g. JAR and NuGet. Either the source can be vendored in to your
-application code or the packages can be imported into your development
-environment and shipped with your software application, according to preference.
-
-Standard API documentation in HTML format is provided for the public methods
-provided by each library.
-
-
-Batteries Included
-------------------
-
-Each library is provided with example source code for an interactive console
-application that demonstrates how to correctly call the library functions. These
-applications will also accept command line arguments in which case the behave as
-a utility that is appropriate for use by sysadmins with only basic scripting
-experience.
-
-The examples illustrate how to create and validate the check character pair for
-a healthcare GMN, whether data is statically coded, supplied interactively or
-processed by consuming each line of a file.
-
-
-Available Libraries
--------------------
-
-The helper libraries are provided in these directories:
-
-| Directory | Purpose                   |
-| --------- | ------------------------- |
-| java/     | Java helper library       |
-| cs/       | C# helper library         |
-| js/       | JavaScript helper library |
+Other than renaming any class imports or class-qualified method calls there are
+no other changes required for user code when migrating to the new library.
 
 
 License
@@ -99,12 +50,3 @@ Unless required by applicable law or agreed to in writing, software distributed
 under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
-
-
-Pedigree
---------
-
-The initial libraries and tests were written (under the commission of GS1 AISBL)
-by one of the experts in the technical group that selected the algorithm based
-on its performance during the analysis of several alternative schemes under
-consideration.
